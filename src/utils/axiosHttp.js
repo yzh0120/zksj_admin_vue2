@@ -22,6 +22,15 @@ service.interceptors.request.use(
     config.headers = { //配置请求token
       "Authorization": getCookie("token") || ""
     }
+
+    if (config.method == "get") {
+      if (config.url.includes("?")) {
+        config.url = config.url + `&timestamp=${new Date().getTime()}`
+      } else {
+        config.url = config.url + `?timestamp=${new Date().getTime()}`
+      }
+    }
+
     return config;
   },
   error => {

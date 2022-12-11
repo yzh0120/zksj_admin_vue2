@@ -1,3 +1,3 @@
 module.exports = {
-  title: '保函业务操作系统'
+  // title: '金融服务平台'
 }

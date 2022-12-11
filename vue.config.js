@@ -6,7 +6,7 @@ function resolve(dir) {
 }
 
 const defaultSettings = require('./src/config/setting.js')
-const name = defaultSettings.title || '保函业务操作系统'
+const name = defaultSettings.title
 
 module.exports = {
   publicPath: process.env.ENV === 'test' ? '/oawebuat/' : '/',
@@ -31,7 +31,7 @@ module.exports = {
   chainWebpack(config) {
     config.plugin('html')
       .tap(args => {
-        args[0].title = "保函业务操作系统";
+        args[0].title = "金融服务平台";
         return args;
       })
     // set svg-sprite-loader

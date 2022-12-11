@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':isCollapse}">
+  <div class="sidebar-logo-container" :class="{ 'collapse': isCollapse }">
     <router-link v-if="isCollapse" key="collapse" class="sidebar-logo-link" to="/">
       <img v-if="logo" :src="logo" class="sidebar-logo">
       <h1 v-else class="sidebar-title">{{ title }} </h1>
@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      title: "深圳担保",
+      title: "金融服务平台",
       logo: require("@/assets/imgs/mxh.png"),
     };
   },
