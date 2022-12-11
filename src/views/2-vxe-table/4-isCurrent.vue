@@ -16,13 +16,16 @@
     <pager :data="pagerData" @pageChange="getData" @sizeChange="getData" />
 
     <!-- 弹窗 -->
-    <vxe-modal v-model="alert" width="800" height="600" showFooter title="产品分配标准" @close="alertCancel">
+    <!-- <vxe-modal v-model="alert" width="800" height="600" showFooter title="产品分配标准" @close="alertCancel">
       <base-form :data="formAlert" ref="formAlert"></base-form>
       <template #footer>
         <el-button @click="alertCancel" plain>取消</el-button>
         <el-button type="primary" @click="alertConfirm">确认</el-button>
       </template>
-    </vxe-modal>
+    </vxe-modal> -->
+    <alert :data="alertData" @cancel="alertCancel" @close="alertCancel" @confirm="alertConfirm">
+      <base-form :data="formAlert" ref="formAlert"></base-form>
+    </alert>
   </page>
 </template>
 
@@ -95,7 +98,9 @@ export default {
         data: {},
       },
       //弹窗字段
-      alert: false,
+      alertData: {
+        alert: false
+      },
     };
   },
   mounted() {
@@ -127,7 +132,7 @@ export default {
     },
     //表格编辑
     tableEdit(row, index) {
-      this.alert = true;
+      this.alertData.alert = true;
       this.formAlert.data = this.$utils.clone(row, true);
     },
     //表格删除
@@ -149,7 +154,7 @@ export default {
     // 弹窗取消
     alertCancel() {
       this.$refs.formAlert.reset();
-      this.alert = false;
+      this.alertData.alert = false;
     },
     // 弹窗确认
     alertConfirm() {

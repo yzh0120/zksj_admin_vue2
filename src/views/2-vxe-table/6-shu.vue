@@ -32,13 +32,16 @@
     </vxe-grid>
 
     <!-- 弹窗 -->
-    <vxe-modal v-model="alert" width="800" height="600" showFooter title="产品分配标准" @close="alertCancel">
+    <!-- <vxe-modal v-model="alert" width="800" height="600" showFooter title="产品分配标准" @close="alertCancel">
       <base-form :data="formData" ref="form"></base-form>
       <template #footer>
         <el-button @click="alertCancel" plain>取消</el-button>
         <el-button type="primary" @click="alertConfirm">确认</el-button>
       </template>
-    </vxe-modal>
+    </vxe-modal> -->
+    <alert :data="alertData" @cancel="alertCancel" @close="alertCancel" @confirm="alertConfirm">
+      <base-form :data="formAlert" ref="formAlert"></base-form>
+    </alert>
   </page>
 </template>
 
@@ -46,7 +49,10 @@
 export default {
   data() {
     return {
-      alert: false,
+      // alert: false,
+      alertData: {
+        alert: false
+      },
       formData: {
         list: [
           { type: "input", field: "statDate", title: "科目" },
@@ -86,7 +92,7 @@ export default {
     },
     //新增
     add() {
-      this.alert = true;
+      this.alertData.alert = true;
       // this.reverseTable(this.columnsList, []);
     },
     //编辑
@@ -105,7 +111,7 @@ export default {
 
     alertCancel() {
       this._reset(this.formData)
-      this.alert = false;
+      this.alertData.alert = false;
     },
     // 弹窗确认
     alertConfirm() {

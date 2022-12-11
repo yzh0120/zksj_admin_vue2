@@ -59,6 +59,9 @@ Vue.mixin(baseFormMixin)
 import baseForm from '@/components/base-form/index'
 Vue.component("baseForm", baseForm)
 
+import alert from '@/components/alert'
+Vue.component("alert", alert)
+
 import page from '@/components/page'
 Vue.component("page", page)
 
