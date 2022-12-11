@@ -1,7 +1,8 @@
 <template>
-  <div class="navbar">
+  <div class="navbar header_navbar">
     <div class="navbar-left">
-      <i class="navbar-collapse" :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="onCollapseChange"></i>
+      <i class="navbar-collapse" :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+        @click="onCollapseChange"></i>
     </div>
     <div class="navbar-right">
       <user></user>
@@ -33,7 +34,7 @@ export default {
 .navbar {
   border-bottom: 1px solid #f1f2f3;
   height: 50px;
-  background-color: var(--bg-topBar);
+  // background-color: var(--bg-topBar);
   flex-shrink: 0;
   display: flex;
   padding-right: 15px;
@@ -49,12 +50,12 @@ export default {
     justify-content: flex-end;
   }
 
-  .navbar-collapse{
+  .navbar-collapse {
     cursor: pointer;
     font-size: 22px;
     margin-left: 15px;
     margin-right: 15px;
-    color: var(--bg-topBarColor);
+    // color: var(--bg-topBarColor);
   }
 }
 </style>

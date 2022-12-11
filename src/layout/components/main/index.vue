@@ -1,5 +1,5 @@
 <template>
-  <el-main class="two_amin-main-scrollbar">
+  <el-main class="two_main-main-scrollbar">
     <el-scrollbar class="layout-scrollbar" ref="layoutScrollbarRef" :style="style">
       <div ref="keepAliveContainer" class="app_main" id="app_main">
         <transition name="fade-transform" mode="out-in">

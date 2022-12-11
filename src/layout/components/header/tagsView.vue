@@ -266,7 +266,7 @@ export default {
 <style lang="scss" scoped>
 .three_tags-div-scrollbar {
   flex: 1;
-  background-color: var(--bg-topBar);
+  // background-color: var(--bg-topBar);
   border-bottom: 1px solid #f1f2f3;
 
   & ::v-deep .is-vertical {
@@ -320,7 +320,6 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background: var(--color-primary);
         z-index: -1;
         opacity: 0;
         transform: scale3d(0.7, 1, 1);

@@ -12,10 +12,15 @@ $activeTextColor: #ffffff;//菜单选中的字体颜色
 $hoverColor: #409eff;//鼠标移上去的字体颜色
 $activeBgColor: #409eff;//菜单选中的背景颜色
 
+$bg-topBar:#fff;
+$bg-topBarColor:#606266;
+
 //侧边栏样式
+/**************************************************************************/ 
 .two_aside-div {
 	background-color: $menuBg !important; //侧边栏背景色
 }
+/**************************************************************************/ 
 //样式权重最低的子叶菜单样式  会被非一级的某行菜单栏(.el-submenu .el-menu-item)的样式覆盖
 .el-menu-item {
 	background-color: $menuBg !important; //背景颜色
@@ -56,7 +61,7 @@ $activeBgColor: #409eff;//菜单选中的背景颜色
 .el-menu li.is-active.el-menu-item {
 
 	color: $activeTextColor !important; // 字体激活颜色
-	background-color: red !important; // 背景激活颜色
+	background-color: $activeBgColor !important; // 背景激活颜色
 	&:hover {
 		i {
 			color: $activeTextColor !important; //字体颜色
@@ -68,5 +73,33 @@ $activeBgColor: #409eff;//菜单选中的背景颜色
 	color: $activeTextColor !important; //的文本颜色
 	i {
 		color: $activeTextColor !important;
+	}
+}
+/**
+tagsView
+************************************************************************/ 
+.three_tags-div-scrollbar{
+	background-color: $bg-topBar;
+	&-ul{
+		&-li{
+			&::before{
+				background: $activeBgColor;
+			}
+		}
+	}
+}
+/**
+header_navbar
+************************************************************************/ 
+.header_navbar{
+	background-color:$bg-topBar;
+	.navbar-collapse{
+		color:$bg-topBarColor;
+	}
+}
+
+.layout-navbars-user {
+	&-icon{
+		color: $bg-topBarColor;
 	}
 }

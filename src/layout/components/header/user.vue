@@ -18,7 +18,7 @@
         <!-- <img :src="getUserInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" />
         {{ getUserInfos.userName === '' ? 'test' : getUserInfos.userName }} -->
         <!-- <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg" alt="" class="layout-navbars-user-link-photo mr5"> -->
-        {{userInfo.userName}}
+        {{ userInfo.userName }}
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -110,7 +110,7 @@ export default {
   &-icon {
     padding: 0 10px;
     cursor: pointer;
-    color: var(--bg-topBarColor);
+    // color: var(--bg-topBarColor);
     height: 50px;
     line-height: 50px;
     display: flex;
