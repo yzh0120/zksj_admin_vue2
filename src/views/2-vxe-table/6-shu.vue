@@ -40,7 +40,7 @@
       </template>
     </vxe-modal> -->
     <alert :data="alertData" @cancel="alertCancel" @close="alertCancel" @confirm="alertConfirm">
-      <base-form :data="formAlert" ref="formAlert"></base-form>
+      <base-form :data="formData" ref="form"></base-form>
     </alert>
   </page>
 </template>
