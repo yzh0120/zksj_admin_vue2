@@ -2,19 +2,18 @@
   <el-container class="one_index-container-aside-head-main">
     <!-- 侧边栏 -->
     <sidebar></sidebar>
-    <el-container class="one_index-container-head-main">
+    <div class="one_index-container-head-main">
       <!-- 头部 -->
       <topheader></topheader>
-      <el-scrollbar ref="layoutScrollbarRef" class="one_index-backtop-main">
-        <!-- 主体 -->
-        <maincontent></maincontent>
-      </el-scrollbar>
-    </el-container>
-    <el-backtop target=".one_index-backtop-main .el-scrollbar__wrap"
-      style="background-color: rgba(64,158,255,0.8);color:#ffffff;">
-      <i class="el-icon-upload2"></i>
-    </el-backtop>
+
+      <!-- 主体 -->
+      <maincontent></maincontent>
+
+    </div>
+
   </el-container>
+
+
 </template>
 
 <script>
@@ -40,8 +39,14 @@ export default {
 
 
 <style lang="scss" scoped>
+.one_index-container-aside-head-main {
+  display: flex !important;
+}
+
 .one_index-container-head-main {
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .layout-scrollbar {

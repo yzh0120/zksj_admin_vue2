@@ -38,9 +38,17 @@
 html,
 body,
 #app,
-.el-container,
-.el-main {
+.el-container
+ {
   height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  font-size: 14px;
+}
+.el-main{
+  height: calc(100% - 84px) !important;
   padding: 0 !important;
   margin: 0 !important;
   box-sizing: border-box;
