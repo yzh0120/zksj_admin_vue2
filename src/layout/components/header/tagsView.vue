@@ -140,6 +140,7 @@ export default {
 
     // 鼠标滚轮滚动
     onHandleScroll(e) {
+      console.log(e, "e")
       this.$refs.scrollbarRef.$refs.wrap.scrollLeft += e.wheelDelta / 4;
     },
 
@@ -299,6 +300,7 @@ export default {
     padding: 0 15px;
 
     &-li {
+      flex-shrink: 0 !important;
       height: 26px;
       line-height: 26px;
       display: flex;
