@@ -2,7 +2,8 @@
   <el-container class="one_index-container-aside-head-main">
     <!-- 侧边栏 -->
     <sidebar></sidebar>
-    <div class="one_index-container-head-main">
+    <div class="one_index-container-head-main"
+      :class="[$store.state.config.isCollapse ? `isCollapse` : `noisCollapse`]">
       <!-- 头部 -->
       <topheader></topheader>
 
@@ -27,6 +28,15 @@ export default {
     topheader,
     maincontent,
   },
+  computed: {
+    isCollapse() {
+      if (this.$store.state.config.isCollapse) {
+        return { width: `calc(100% - 54px)` }
+      } else {
+        return { width: "calc(100% - 210px)" }
+      }
+    },
+  },
   // 监听路由的变化
   $route: {
     handler(to) {
@@ -45,8 +55,9 @@ export default {
 
 .one_index-container-head-main {
   flex-direction: column;
-  width: 100%;
+  // width: 100%;
   height: 100%;
+  display: flex;
 }
 
 .layout-scrollbar {
@@ -54,5 +65,14 @@ export default {
   transition: padding 0.3s ease-in-out 0s;
   width: 100%;
   // padding: 15px;
+}
+
+
+.isCollapse {
+  width: calc(100% - 54px)
+}
+
+.noisCollapse {
+  width: calc(100% - 210px)
 }
 </style>
