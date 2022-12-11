@@ -1,7 +1,7 @@
 <template>
   <el-header :height="heigth" class="two_header-header-navbar-tagsView">
     <navbar></navbar>
-    <tagsView v-if="needTags"></tagsView>
+    <tagsView></tagsView>
   </el-header>
 </template>
 
@@ -17,8 +17,7 @@ export default {
   },
   data() {
     return {
-      needTags: config.needTags,
-      heigth: config.needTags ? "84px" : "50px",
+      heigth: "84px",
     };
   },
   created() { },

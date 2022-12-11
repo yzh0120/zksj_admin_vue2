@@ -1,40 +1,57 @@
 <template>
-  <page>
-    <!-- 表单 -->
-    <base-form :data="formSearch">
-      <template #button>
-        <el-button type="primary" @click="search" native-type="submit">搜索</el-button>
-        <el-button type="primary" @click="addData">新增</el-button>
-      </template>
-    </base-form>
-    <!-- 表格 -->
-    <vxe-grid v-bind="gridOptions" auto-resize>
-      <template #num_default="{ rowIndex }">
-        <span>{{ (pagerData.pageNo - 1) * pagerData.pageSize + rowIndex + 1 }}</span>
-      </template>
-      <template #do="{ row, rowIndex }">
-        <el-button type="text" @click="tableEdit(row, rowIndex)">编辑</el-button>
-        <el-button type="text" @click="tableDel(row, rowIndex)">删除</el-button>
-      </template>
-    </vxe-grid>
+  <navPage leftTitle="左边的标题" rightTitle="右边的标题">
+    <!-- 左边 -->
+    <template #left>
+      <div v-for="(item, index) in arr" :key="index" :class="['left-item', active == index ? 'active' : '']"
+        @click="select(index)">
+        <div>目录{{ item }}</div>
+      </div>
+    </template>
+    <!-- 右边 -->
+    <template #right>
+      <!-- 表单 -->
+      <base-form :data="formSearch">
+        <template #button>
+          <el-button type="primary" @click="search" native-type="submit">搜索</el-button>
+          <el-button type="primary" @click="addData">新增</el-button>
+        </template>
+      </base-form>
+      <!-- 表格 -->
+      <vxe-grid v-bind="gridOptions" auto-resize>
+        <template #num_default="{ rowIndex }">
+          <span>{{ (pagerData.pageNo - 1) * pagerData.pageSize + rowIndex + 1 }}</span>
+        </template>
+        <template #do="{ row, rowIndex }">
+          <el-button type="text" @click="tableEdit(row, rowIndex)">编辑</el-button>
+          <el-button type="text" @click="tableDel(row, rowIndex)">删除</el-button>
+        </template>
+      </vxe-grid>
 
-    <!-- 分页 -->
-    <pager :data="pagerData" @pageChange="getData" @sizeChange="getData" />
+      <!-- 分页 -->
+      <pager :data="pagerData" @pageChange="getData" @sizeChange="getData" />
 
-    <!-- 弹窗 -->
-    <alert :data="alertData" @cancel="alertCancel" @close="alertCancel" @confirm="alertConfirm">
-      <base-form :data="formAlert" ref="formAlert"></base-form>
-    </alert>
-  </page>
+      <!-- 弹窗 -->
+      <alert :data="alertData" @cancel="alertCancel" @close="alertCancel" @confirm="alertConfirm">
+        <base-form :data="formAlert" ref="formAlert"></base-form>
+      </alert>
+    </template>
+  </navPage>
 </template>
 
 <script>
-import * as config from "@/config/index";
+import * as config from "@/config/index.js"
 import * as testApi from "@/api/test";
 export default {
   data() {
     let self = this;
     return {
+      active: "",
+      arr: [
+        1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10, 11, 12, 14, 15, 13, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+
+      //////////////////////////////////////////////
       //筛选表单
       formSearch: {
         list: [
@@ -49,7 +66,7 @@ export default {
         loading: false,
         border: true,
         showOverflow: true,
-        height: config.tableheight,
+        height: config.navTableIntableHeight,
         align: "center",
         columns: [
           {
@@ -97,12 +114,17 @@ export default {
       alertData: {
         alert: false
       },
+
     };
   },
   mounted() {
     this.getData();
   },
   methods: {
+    select(index) {
+      this.active = index;
+    },
+    //////////////////////////////////////////////////////////////////
     //点击按钮搜索数据
     search() {
       this.pagerData.pageNo = 1
@@ -173,7 +195,6 @@ export default {
         });
       }
     },
-
 
   },
 };

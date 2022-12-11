@@ -3,10 +3,10 @@
     <el-scrollbar class="layout-scrollbar" ref="layoutScrollbarRef" :style="style">
       <div ref="keepAliveContainer" class="app_main" id="app_main">
         <transition name="fade-transform" mode="out-in">
-          <keep-alive v-if="needTags">
+          <keep-alive>
             <router-view :key="key" />
           </keep-alive>
-          <router-view v-else></router-view>
+          <!-- <router-view v-else></router-view> -->
         </transition>
       </div>
     </el-scrollbar>
@@ -19,11 +19,8 @@ export default {
   name: "maincontent",
   data() {
     return {
-      needTags: config.needTags,
       style: {
-        "min-height": config.needTags
-          ? "calc(100vh - 84px)"
-          : "calc(100vh - 50px)",
+        "min-height": "calc(100vh - 84px)"
       },
     };
   },
@@ -50,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .one_index-container-aside-head-main .layout-scrollbar {
-  padding: 15px;
+  // padding: 15px;
   transition: padding 0.3s ease-in-out 0s;
 }
 </style>

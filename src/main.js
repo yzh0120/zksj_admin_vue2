@@ -65,6 +65,9 @@ Vue.component("alert", alert)
 import page from '@/components/page'
 Vue.component("page", page)
 
+import navPage from '@/components/nav-page'
+Vue.component("navPage", navPage)
+
 import svgIcon from '@/components/svgIcon'
 Vue.component("svgIcon", svgIcon)
 

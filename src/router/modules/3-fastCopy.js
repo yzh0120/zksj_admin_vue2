@@ -20,5 +20,13 @@ export default {
       title: '表单弹窗页面',
       icon: "lcd",
     }
+  }, {
+    path: 'navPage',
+    name: 'fastCopy-navPage',
+    component: () => import( /* webpackChunkName: "fastCopy-navPage" */ "@/views/3-fastCopy/2-nav-page.vue"),
+    meta: {
+      title: '导航页面',
+      icon: "lcd",
+    }
   }]
 }
