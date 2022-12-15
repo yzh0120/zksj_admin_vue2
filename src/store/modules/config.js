@@ -6,7 +6,8 @@
  */
 const state = {
   isCollapse: false,
-  loading: false
+  loading: false,
+  dataItem: {}
 }
 
 const mutations = {

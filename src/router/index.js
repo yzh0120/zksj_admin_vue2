@@ -41,43 +41,25 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
-  // if (to.query.wordCode) {
-  //   let data = {
-  //     wordCode: to.query.wordCode,
-  //     name: to.query.name,
-  //     enName: to.query.enName,
-  //     idCard: to.query.idCard,
-  //   }
-  //   await userApi.singerlogin(data).then((res) => {
-  //     if (res.code == 200) {
-  //       setCookie(
-  //         "token",
-  //         res.data.token,
-  //         new Date(res.data.expireTime)
-  //       );
-  //       next("/")
-  //     }
-  //   })
-  // }
 
   if (getCookie("token")) { //如果浏览器有token
 
-    // if (store.state.user.database === null) {
-    //   await spiderdataSkyEyeApi.queryMyUser().then(res => {
-    //     store.commit("user/setDatabase", res.data);
-    //   }).catch(() => {
-    //     store.commit("user/setDatabase", {
-    //       user: {
-    //         datasource: 1
-    //       }
-    //     });
-    //   })
-    // }
+
     if (!store.getters.userInfo.userName) { //如果vuex没有用户信息
       await userApi.getAppSession().then(res => { //通过接口获取用户信息
         store.dispatch("user/setUserInfo", res.data); //保存用户信息
       })
     }
+
+    await setTimeout(() => {
+      store.state.config.dataItem = {
+        a: [{
+          text: "文字",
+          value: "1"
+        }]
+      }
+      Promise.resolve()
+    }, 500)
 
 
     if (to.path === '/login') { //如果去登录页 直接跳转首页

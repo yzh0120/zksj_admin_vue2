@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import XEUtils, {
   toNumber
 } from "xe-utils";
-
+import store from '@/store/index' //vuex
 /**
  * 深度克隆
  * @param {*} target 
@@ -418,5 +418,16 @@ export function type(data) {
     return "reg"
   } else if (res == 'Array') {
     return "arr"
+  }
+}
+///数据字典转化
+export function dataItem(field, value) {
+  let obj = store.state.config.dataItem[field]
+  if (obj) {
+    return obj.find((e) => {
+      return e.value === value
+    }).text
+  } else {
+    return '数据字典没有此字段'
   }
 }

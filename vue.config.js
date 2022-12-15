@@ -1,3 +1,9 @@
+/*
+ * @Author: yz
+ * @Date: 2022-12-15 10:01:58
+ * @Description: 
+ * 
+ */
 const path = require('path')
 const webpack = require('webpack')
 
@@ -5,8 +11,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const defaultSettings = require('./src/config/setting.js')
-const name = defaultSettings.title
+const name = "金融服务平台"
 
 module.exports = {
   publicPath: process.env.ENV === 'test' ? '/oawebuat/' : '/',
@@ -31,7 +36,7 @@ module.exports = {
   chainWebpack(config) {
     config.plugin('html')
       .tap(args => {
-        args[0].title = "金融服务平台";
+        args[0].title = name;
         return args;
       })
     // set svg-sprite-loader
