@@ -61,7 +61,6 @@ export default {
 }
 
 .layout-scrollbar {
-  // min-height: calc(100vh - 84px);
   transition: padding 0.3s ease-in-out 0s;
   width: 100%;
   // padding: 15px;

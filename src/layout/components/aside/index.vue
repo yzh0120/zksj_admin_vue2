@@ -2,6 +2,7 @@
   <el-aside width="auto">
     <div class="two_aside-div" :class="{ 'isCollapse': isCollapse }">
       <Logo></Logo>
+      <!-- 50px 是logo组件的大小 -->
       <el-scrollbar wrap-class="two_aside-scrollbar-menutree" ref="scrollbarRef"
         style="height:calc(100% - 50px) !important">
         <el-menu :collapse="isCollapse" :collapse-transition="false" :unique-opened="false" :default-active="activeName"
