@@ -6,15 +6,10 @@
       :class="[$store.state.config.isCollapse ? `isCollapse` : `noisCollapse`]">
       <!-- 头部 -->
       <topheader></topheader>
-
       <!-- 主体 -->
       <maincontent></maincontent>
-
     </div>
-
   </el-container>
-
-
 </template>
 
 <script>
@@ -29,13 +24,14 @@ export default {
     maincontent,
   },
   computed: {
-    isCollapse() {
-      if (this.$store.state.config.isCollapse) {
-        return { width: `calc(100% - 54px)` }
-      } else {
-        return { width: "calc(100% - 210px)" }
-      }
-    },
+    //写死的布局数据
+    // isCollapse() {
+    //   if (this.$store.state.config.isCollapse) {
+    //     return { width: `calc(100% - 54px)` }
+    //   } else {
+    //     return { width: "calc(100% - 210px)" }
+    //   }
+    // },
   },
   // 监听路由的变化
   $route: {
@@ -66,11 +62,12 @@ export default {
   // padding: 15px;
 }
 
-
+//写死的布局数据
 .isCollapse {
   width: calc(100% - 54px)
 }
 
+//写死的布局数据
 .noisCollapse {
   width: calc(100% - 210px)
 }

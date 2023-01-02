@@ -1,6 +1,7 @@
 <template>
   <el-main class="two_main-main-scrollbar">
-    <el-scrollbar class="layout-scrollbar" ref="layoutScrollbarRef" :style="style">
+    <!-- <el-scrollbar class="layout-scrollbar" ref="layoutScrollbarRef" :style="style"> -->
+    <el-scrollbar class="layout-scrollbar" ref="layoutScrollbarRef">
       <div ref="keepAliveContainer" class="app_main" id="app_main">
         <transition name="fade-transform" mode="out-in">
           <keep-alive>
@@ -19,9 +20,10 @@ export default {
   name: "maincontent",
   data() {
     return {
-      style: {
-        "min-height": "calc(100vh - 84px)"
-      },
+      //写死的布局数据 //84px  是header的高度
+      // style: {
+      //   "min-height": "calc(100vh - 84px)"
+      // },
     };
   },
   mounted() {
