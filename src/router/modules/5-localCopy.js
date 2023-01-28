@@ -29,6 +29,15 @@ export default {
       title: '快速弹窗方便校验',
       icon: "lcd",
     }
-  }
+    },
+    {
+      path: 'popSelect',
+      name: 'localCopy-popSelect',
+      component: () => import( /* webpackChunkName: "localCopy-popSelect" */ "@/views/5-localCopy/3-popSelect.vue"),
+      meta: {
+        title: 'popSelect',
+        icon: "lcd",
+      }
+    }
   ]
 }
