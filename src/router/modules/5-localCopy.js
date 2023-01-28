@@ -20,5 +20,15 @@ export default {
       title: '禁用全部按钮',
       icon: "lcd",
     }
-  }]
+  },
+  {
+    path: 'fastAlert',
+    name: 'localCopy-fastAlert',
+    component: () => import( /* webpackChunkName: "localCopy-fastAlert" */ "@/views/5-localCopy/2-fastAlert.vue"),
+    meta: {
+      title: '快速弹窗方便校验',
+      icon: "lcd",
+    }
+  }
+  ]
 }
