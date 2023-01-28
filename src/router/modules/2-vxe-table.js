@@ -65,6 +65,17 @@ export default {
         title: '竖向表格',
         icon: "biaodanzujian-biaoge",
       }
+    },
+
+
+    {
+      path: 'table',
+      name: 'vxeTable-table',
+      component: () => import( /* webpackChunkName: "vxeTable-table" */ "@/views/2-vxe-table/999-table.vue"),
+      meta: {
+        title: '原生表格',
+        icon: "biaodanzujian-biaoge",
+      }
     }
   ]
 }

@@ -11,9 +11,13 @@ import baseForm from "./modules/1-base-form.js"
 import vxeTable from "./modules/2-vxe-table.js"
 import fastCopy from "./modules/3-fastCopy.js"
 import fileUp from "./modules/4-fileUp.js"
+import localCopy from "./modules/5-localCopy.js"
 import style from "./modules/6-style.js"
 import svgIcon from "./modules/7-svgIcon.js"
+
+import vCharts from "./modules/10-vCharts.js"
 import elementUi from "./modules/11-element-ui.js"
+import print from "./modules/12-print.js"
 import {
   status
 } from "./modules/status.js"
@@ -50,12 +54,15 @@ const routes = [{
     component: () => import("@/views/login/index.vue")
   },
   baseForm, //表单
-  vxeTable,
-  fastCopy,
-  style,
-  svgIcon, //
-  fileUp, //
+  vxeTable,//列表
+  fastCopy,//复制
+  style,//css
+  svgIcon, //图标
+  fileUp, //文件上传
+  localCopy,//局部复制
+  vCharts,//图表
   elementUi, //
+  print,//打印
   ...status, //状态和登录页
 ]
 

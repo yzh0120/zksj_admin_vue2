@@ -9,7 +9,7 @@ export default {
   },
   component: layout,
   meta: {
-    title: '复制',
+    title: '整个页面复制',
     icon: "lcd",
   },
   children: [{
