@@ -3,9 +3,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
     path: '/baseForm',
     name: 'baseForm',
-    redirect: {
-        name: "baseForm-base"
-    },
     component: layout,
     meta: {
         title: '封装el-form',

@@ -1,8 +1,8 @@
 import {
     Message
-} from 'element-ui';
-
-function generateUUID() {
+  } from 'element-ui';
+  
+  function generateUUID() {
     var d = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = (d + Math.random() * 16) % 16 | 0;
@@ -10,14 +10,15 @@ function generateUUID() {
         return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
-};
-
-
-(function ($, learun) {
+  };
+  
+  
+  (function ($, learun) {
     "use strict";
-
-
+  
+  
     $.lrworkflow = {
+        
         render: function ($self) {
             var dfop = $self[0].dfop;
             $self.addClass('lr-workflow');
@@ -60,8 +61,8 @@ function generateUUID() {
             } else {
                 $self.addClass('lr-workflow-preview');
             }
-
-
+  
+  
             // 工作流画板(工作区域)
             $self.append('<div class="lr-workflow-work"></div>');
             var $workArea = $("<div class='lr-workflow-workinner' style='width:5000px;height:5000px'></div>")
@@ -70,20 +71,20 @@ function generateUUID() {
                     "onselectstart": 'return false',
                     "onselect": 'document.selection.empty()'
                 });
-
+  
             // $self.children(".lr-workflow-work").mCustomScrollbar({ // 优化滚动条
             //     axis: "xy"
             // });
             $self.children(".lr-workflow-work").append($workArea);
-
+  
             $workArea[0].dfop = dfop;
             $.lrworkflow.initDraw($workArea, dfop);
             $workArea.on("click", $.lrworkflow.clickWorkArea);
-
+  
             $.lrworkflow.initNodeEvent($workArea);
             $.lrworkflow.initLineEvent($workArea);
-
-
+  
+  
             //对结点进行移动或者RESIZE时用来显示的遮罩层
             var $ghost = $("<div class='lr-workflow-rsghost'></div>").attr({
                 "unselectable": "on",
@@ -92,10 +93,10 @@ function generateUUID() {
             });
             // $self.append($ghost);
             $(".lr-workflow-workinner").append($ghost);
-
+  
             var $lineMove = $('<div class="lr-workflow-linemover" style="display:none" ></div>'); //操作折线时的移动框
             $workArea.append($lineMove);
-
+  
             $lineMove.on("mousedown", {
                 $workArea: $workArea
             }, function (e) {
@@ -105,7 +106,7 @@ function generateUUID() {
                     "background-color": "#333"
                 });
                 var $workArea = e.data.$workArea;
-
+  
                 var ev = $.lrworkflow.mousePosition(e),
                     t = $.lrworkflow.getElCoordinate($workArea[0]);
                 var X, Y;
@@ -124,7 +125,7 @@ function generateUUID() {
                     Y = ev.y - t.top;
                     if (lm.data("type") == "lr") {
                         X = X - vX;
-
+  
                         if (X < 0) X = 0;
                         else if (X > 5000)
                             X = 5000;
@@ -162,7 +163,7 @@ function generateUUID() {
                     document.onmouseup = null;
                 }
             });
-
+  
             // 设置线条工具条选定线时显示的操作框
             var $lineOper = $("<div class='lr-workflow-lineoper' style='display:none'><b class='lr'></b><b class='tb'></b><b class='sl'></b><b class='x'></b></div>");
             $workArea.append($lineOper);
@@ -184,10 +185,10 @@ function generateUUID() {
             var $newBtn = $('#' + dfop.id + "_btn_" + type);
             $oldBtn.removeClass('lr-workflow-btndown');
             $oldBtn.addClass('lr-workflow-btn');
-
+  
             $newBtn.removeClass('lr-workflow-btn');
             $newBtn.addClass('lr-workflow-btndown');
-
+  
             dfop.currentBtn = type;
         },
         initDraw: function ($workArea, dfop) {
@@ -200,7 +201,7 @@ function generateUUID() {
             defs.appendChild($.lrworkflow.getSvgMarker("arrow1", "gray"));
             defs.appendChild($.lrworkflow.getSvgMarker("arrow2", "#ff3300"));
             defs.appendChild($.lrworkflow.getSvgMarker("arrow3", "#225ee1"));
-
+  
             $draw.id = 'draw_' + dfop.id;
             $draw.style.width = "5000px";
             $draw.style.height = "5000px";
@@ -226,10 +227,10 @@ function generateUUID() {
             var $this = $(this);
             var dfop = $this[0].dfop;
             if (!dfop.isPreview) {
-
-
+  
+  
                 e = e || window.event;
-
+  
                 var type = dfop.currentBtn;
                 if (type == "cursor") {
                     var t = $(e.target);
@@ -244,10 +245,10 @@ function generateUUID() {
                 var X, Y;
                 var ev = $.lrworkflow.mousePosition(e),
                     t = $.lrworkflow.getElCoordinate(this);
-
+  
                 X = ev.x - t.left + $(".lr-workflow-work").scrollLeft();
                 Y = ev.y - t.top + $(".lr-workflow-work").scrollTop();
-
+  
                 var name = dfop.nodeRemarks[type];
                 var executeadd = true;
                 if (type == 'startround') {
@@ -291,8 +292,8 @@ function generateUUID() {
                     $item.removeClass("lr-workflow-nodemark");
                 } else {
                     var lineData = $.lrworkflow.getLine(dfop, dfop.focusId);
-
-
+  
+  
                     if (!lineData.marked) {
                         if (lineData.wftype == '2') {
                             $item[0].childNodes[1].setAttribute("stroke", "#ff3300");
@@ -323,7 +324,7 @@ function generateUUID() {
                 return;
             }
             if ($item.prop("tagName") == "DIV") {
-
+  
                 $item.addClass("lr-workflow-nodefocus");
                 $item.find('.lr-workflow-nodeclose').show();
             } else { //如果是连接线
@@ -336,9 +337,9 @@ function generateUUID() {
                 from[1] = parseInt(from[1], 10);
                 to[0] = parseInt(to[0], 10);
                 to[1] = parseInt(to[1], 10);
-
+  
                 var lineData = $.lrworkflow.getLine(dfop, id);
-
+  
                 if (lineData.type == "lr") {
                     from[0] = lineData.M;
                     to[0] = from[0];
@@ -372,7 +373,7 @@ function generateUUID() {
                 }
                 x = (from[0] + to[0]) / 2 - 35;
                 y = (from[1] + to[1]) / 2 + 6;
-
+  
                 var $lineOper = $('.lr-workflow-lineoper');
                 $lineOper.css({
                     display: "block",
@@ -412,13 +413,13 @@ function generateUUID() {
                 y: ev.clientY + document.documentElement.scrollTop - document.body.clientTop
             };
         },
-
+  
         // 节点操作
         //增加一个流程结点,传参为一个JSON,有id,name,top,left,width,height,type(结点类型)等属性
         addNode: function ($workArea, dfop, node, isold) {
             var mark = node.type;
             var $node;
-
+  
             if (!node.width || node.width < 150) node.width = 150;
             if (!node.height || node.height < 65) node.height = 65;
             if (!node.top || node.top < 0) node.top = 0;
@@ -427,7 +428,7 @@ function generateUUID() {
                 node.width = 160;
                 node.height = 90;
                 $node = $('<div class="lr-workflow-node item-conditionnode" id="' + node.id + '" ><div class="lr-workflow-nodeico"></div><b class="ico_' + node.type + 'div"></b><div class="lr-workflow-nodetext">' + node.name + '</div><div class="lr-workflow-nodeassemble" ></div></div>');
-
+  
             } else if (mark != "startround" && mark != "endround") {
                 $node = $('<div class="lr-workflow-node" id="' + node.id + '" ><div class="lr-workflow-nodeico"><b class="ico_' + node.type + '"></b></div><div class="lr-workflow-nodetext">' + node.name + '</div><div class="lr-workflow-nodeassemble" ></div></div>');
             } else {
@@ -447,14 +448,14 @@ function generateUUID() {
             $node.find('.lr-workflow-nodeassemble').append('<div class="lr-workflow-nodespot top"><div class="lr-workflow-nodespotc"></div></div>');
             $node.find('.lr-workflow-nodeassemble').append('<div class="lr-workflow-nodespot right"><div class="lr-workflow-nodespotc"></div></div>');
             $node.find('.lr-workflow-nodeassemble').append('<div class="lr-workflow-nodespot bottom"><div class="lr-workflow-nodespotc"></div></div>');
-
+  
             $node.css({
                 'top': node.top + 'px',
                 'left': node.left + 'px',
                 'width': node.width + 'px',
                 'height': node.height + 'px'
             });
-
+  
             if (node.state != undefined && (node.type == 'startround' || node.type == 'auditornode' || node.type == 'stepnode' || node.type == 'confluencenode')) {
                 $node.css({
                     'padding-left': '0',
@@ -493,7 +494,7 @@ function generateUUID() {
                         break;
                 }
             }
-
+  
             // 初始化节点的配置信息
             if (!isold) {
                 switch (node.type) {
@@ -514,7 +515,7 @@ function generateUUID() {
                         node.iocName = '';
                         node.dbSuccessId = '';
                         node.dbSuccessSql = '';
-
+  
                         node.timeoutAction = 48; // 超时流转时间
                         node.timeoutNotice = 24; // 超时通知时间
                         break;
@@ -534,12 +535,12 @@ function generateUUID() {
                         break;
                 }
             }
-
-
-
+  
+  
+  
             $node[0].wfdata = node;
             $node[0].dfop = dfop;
-
+  
             $workArea.append($node);
             dfop.node.push(node);
         },
@@ -562,7 +563,7 @@ function generateUUID() {
             } else if (nodeData.type == 'endround') {
                 dfop.hasEndround = false;
             }
-
+  
             dfop.focusId = "";
         },
         //移动结点到一个新的位置
@@ -581,7 +582,7 @@ function generateUUID() {
             //重画转换线
             this.resetLines(id, dfop);
         },
-
+  
         // 更新节点名字
         updateNodeName: function ($workArea, nodeId) {
             var $node = $workArea.find('#' + nodeId);
@@ -590,7 +591,7 @@ function generateUUID() {
         },
         initNodeEvent: function ($workArea) {
             var dfop = $workArea[0].dfop;
-
+  
             //节点双击事件
             $workArea.delegate(".lr-workflow-node", "dblclick", {
                 $workArea: $workArea
@@ -602,24 +603,25 @@ function generateUUID() {
                 dfop.openNode(nodeData);
             });
             if (!dfop.isPreview) {
-                //绑定点击事件
+                //注释---绑定点击事件
                 $workArea.delegate(".lr-workflow-node", "click", function (e) {
                     $.lrworkflow.focusItem(this.id);
                     return false;
                 });
-                //绑定右击事件
+                //注释---绑定右击事件
                 $workArea.delegate(".lr-workflow-node", "contextmenu", function (e) {
                     //$.lrworkflow.focusItem(this.id);
                     //return false;
                 });
-                //绑定用鼠标移动事件(节点拖动)
+                //注释---绑定用鼠标按下事件(拖动某个节点)
                 $workArea.delegate(".lr-workflow-nodeico", "mousedown", {
                     $workArea: $workArea
                 }, function (e) {
+                    
                     var $node = $(this).parents(".lr-workflow-node");
                     var dfop = $node[0].dfop;
                     var nodeData = $node[0].wfdata;
-
+  
                     e = e || window.event;
                     if (dfop.$nowType == "direct") {
                         return;
@@ -634,13 +636,13 @@ function generateUUID() {
                         $ghost.css({
                             'padding-left': '0px'
                         });
-
+  
                     } else {
                         $ghost.css({
                             'padding-left': '48px'
                         });
                     }
-
+  
                     $node.children().clone().prependTo($ghost);
                     if (nodeData.type == "conditionnode") {
                         $ghost.find('b').css({
@@ -649,12 +651,12 @@ function generateUUID() {
                             'position': 'absolute',
                             'z-index': '-1'
                         });
-
+  
                     }
-
+  
                     $ghost.find('.lr-workflow-nodeclose').remove();
                     var X, Y;
-
+  
                     X = ev.x - t.left;
                     Y = ev.y - t.top;
                     var vX = X - nodeData.left,
@@ -662,7 +664,14 @@ function generateUUID() {
                     var isMove = false;
                     var hack = 1;
                     if (navigator.userAgent.indexOf("8.0") != -1) hack = 0;
-                    document.onmousemove = function (e) { //yes
+                    // document.onmousemove = function (e) { //
+          // console.log($('#workFlow'),"$('#workFlow')")
+          // $('#workFlow').mousemove(workFlow_mousemove)
+          // function workFlow_mousemove(e) { //
+                    
+                    //注释---绑定用鼠标移动事件(拖动某个节点)
+          document.onmousemove = function (e) { 
+          console.log(e,"鼠标移动")
                         if (!e) e = window.event;
                         var ev = $.lrworkflow.mousePosition(e);
                         if (X == ev.x - vX && Y == ev.y - vY) return false;
@@ -683,19 +692,23 @@ function generateUUID() {
                         } else if (X + nodeData.width > t.left + $workArea.width()) {
                             X = t.left + $workArea.width() - nodeData.width;
                         }
-
+  
                         if (Y < 0) {
                             Y = 0;
                         } else if (Y + nodeData.height > t.top + $workArea.height() - 141) {
                             Y = $workArea.height() - nodeData.height + t.top - 141;
                         }
-
+  
                         $ghost.css({
-                            left: X - 61 + "px",
-                            top: Y + "px"
+                            // left: X - 61 + "px",
+                            // top: Y + "px"
+  
+                            left: X - 76 + "px",
+                            top: Y + 100 + "px"
                         });
                         isMove = true;
                     }
+                    //注释---绑定用鼠标弹起事件(拖动某个节点)
                     document.onmouseup = function (e) {
                         if (isMove) $.lrworkflow.moveNode(id, X - t.left, Y + 141 - t.top);
                         $ghost.empty().hide();
@@ -720,7 +733,7 @@ function generateUUID() {
                     if (dfop.currentBtn != "direct") return;
                     $(this).removeClass("lr-workflow-nodemark");
                 });
-
+  
                 $workArea.delegate(".lr-workflow-nodespot", "mouseenter", {
                     $workArea: $workArea
                 }, function (e) {
@@ -735,7 +748,7 @@ function generateUUID() {
                     if (dfop.currentBtn != "direct") return;
                     $(this).removeClass("lr-workflow-nodespotmark");
                 });
-
+  
                 //绑定连线时确定初始点
                 $workArea.delegate(".lr-workflow-nodespot", "mousedown", {
                     $workArea: $workArea
@@ -749,7 +762,7 @@ function generateUUID() {
                     var X, Y;
                     X = nodeData.left;
                     Y = nodeData.top;
-
+  
                     // console.log(X,Y,'xy')
                     var position = 'left';
                     if ($this.hasClass('left')) {
@@ -857,7 +870,7 @@ function generateUUID() {
                 }, function (e) {
                     var $workArea = e.data.$workArea;
                     var dfop = $workArea[0].dfop;
-
+  
                     var lineData = $.lrworkflow.getLine(dfop, this.id);
                     dfop.openLine(lineData);
                 });
@@ -907,7 +920,7 @@ function generateUUID() {
             line = document.createElementNS("http://www.w3.org/2000/svg", "g");
             var hi = document.createElementNS("http://www.w3.org/2000/svg", "path");
             var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-
+  
             if (id != "") line.setAttribute("id", id);
             line.setAttribute("from", sp[0] + "," + sp[1]);
             line.setAttribute("to", ep[0] + "," + ep[1]);
@@ -922,7 +935,7 @@ function generateUUID() {
             path.setAttribute("stroke-linecap", "round");
             path.setAttribute("fill", "none");
             if (dash) path.setAttribute("style", "stroke-dasharray:6,5");
-
+  
             if (mark) {
                 path.setAttribute("stroke", "#3498DB"); //ff3300
                 path.setAttribute("marker-end", "url(#arrow3)");
@@ -934,7 +947,7 @@ function generateUUID() {
                 path.setAttribute("marker-end", "url(#arrow1)");
             }
             ///console.log(wftype);
-
+  
             line.appendChild(hi);
             line.appendChild(path);
             line.style.cursor = "crosshair";
@@ -977,7 +990,7 @@ function generateUUID() {
             path.setAttribute("stroke-width", 2.0);
             path.setAttribute("stroke-linecap", "round");
             path.setAttribute("fill", "none");
-
+  
             if (mark) {
                 path.setAttribute("stroke", "#3498DB"); //ff3300
                 path.setAttribute("marker-end", "url(#arrow3)");
@@ -1043,7 +1056,7 @@ function generateUUID() {
             line.name = line.name || '';
             line.wftype = line.wftype || '1';
             dfop.line.push(line);
-
+  
             if (line.type && line.type != "sl") {
                 var res = $.lrworkflow.calcPolyPoints(sxy, exy, line.type, line.M);
                 $line = $.lrworkflow.drawPoly(line.wftype, line.id, res.start, res.m1, res.m2, res.end, line.mark);
@@ -1052,7 +1065,7 @@ function generateUUID() {
                 $line = $.lrworkflow.drawLine(line.wftype, line.id, sxy, exy, line.mark);
             }
             var $draw = $('#' + dfop.id).find('svg');
-
+  
             $($line)[0].dfop = dfop;
             if (line.name != "") {
                 $($line).find('text').html(line.name);
@@ -1067,12 +1080,12 @@ function generateUUID() {
                 var exy = [];
                 var line = dfop.line[i];
                 if (line.from == nodeId || line.to == nodeId) {
-
+  
                     sxy = $.lrworkflow.getLineSpotXY(line.from, dfop, line.sp);
                     exy = $.lrworkflow.getLineSpotXY(line.to, dfop, line.ep);
-
+  
                     $('#' + line.id).remove();
-
+  
                     if (line.type == "sl") {
                         $line = $.lrworkflow.drawLine(line.wftype, line.id, sxy, exy, line.mark);
                     } else {
@@ -1082,7 +1095,7 @@ function generateUUID() {
                     var $draw = $('#' + dfop.id).find('svg');
                     $($line)[0].dfop = dfop;
                     $draw.append($line);
-
+  
                     var lineId = $($line).attr('id');
                     var lineData = $.lrworkflow.getLine(dfop, lineId);
                     $($line).find('text').html(lineData.name);
@@ -1093,17 +1106,17 @@ function generateUUID() {
         setLineType: function (id, newType) {
             var $line = $('#' + id);
             var dfop = $line[0].dfop;
-
+  
             var lineData = $.lrworkflow.getLine(dfop, id);
-
+  
             if (!newType || newType == null || newType == "" || newType == lineData.type) return false;
             var from = lineData.from;
             var to = lineData.to;
             lineData.type = newType;
-
+  
             var sxy = $.lrworkflow.getLineSpotXY(from, dfop, lineData.sp);
             var exy = $.lrworkflow.getLineSpotXY(to, dfop, lineData.ep);
-
+  
             var res;
             // 如果是变成折线
             if (newType != "sl") {
@@ -1115,7 +1128,7 @@ function generateUUID() {
                 delete lineData.M;
                 var $lineMove = $('.lr-workflow-linemover');
                 $lineMove.hide().removeData("type").removeData("tid");
-
+  
                 $line.remove();
                 $line = $.lrworkflow.drawLine(lineData.wftype, lineData.id, sxy, exy, lineData.mark);
                 var $draw = $('#' + dfop.id).find('svg');
@@ -1123,21 +1136,21 @@ function generateUUID() {
                 $draw.append($line);
                 var lineData = $.lrworkflow.getLine(dfop, id);
                 $($line).find('text').html(lineData.name);
-
+  
             }
-
-
-
+  
+  
+  
             if (dfop.focusId == id) {
                 $.lrworkflow.focusItem(id);
             }
         },
         //设置折线中段的X坐标值（可左右移动时）或Y坐标值（可上下移动时）
         setLineM: function (id, M, noStack) {
-
+  
             var dfop = $('#' + id)[0].dfop;
             var lineData = $.lrworkflow.getLine(dfop, id);
-
+  
             if (!lineData || M < 0 || !lineData.type || lineData.type == "sl") return false;
             var from = lineData.from;
             var to = lineData.to;
@@ -1145,13 +1158,13 @@ function generateUUID() {
             var sxy = $.lrworkflow.getLineSpotXY(from, dfop, lineData.sp);
             var exy = $.lrworkflow.getLineSpotXY(to, dfop, lineData.ep);
             var ps = $.lrworkflow.calcPolyPoints(sxy, exy, lineData.type, lineData.M);
-
-
+  
+  
             $('#' + id).remove();
             console.log(lineData);
             var $line = $.lrworkflow.drawPoly(lineData.wftype, id, ps.start, ps.m1, ps.m2, ps.end, lineData.marked || dfop.focusId == id);
             var $draw = $('#' + dfop.id).find('svg');
-
+  
             $($line)[0].dfop = dfop;
             $draw.append($line);
             $($line).find('text').html(lineData.name);
@@ -1182,7 +1195,7 @@ function generateUUID() {
             var dfop = $workArea[0].dfop;
             var lineData = $.lrworkflow.getLine(dfop, lineId);
             $line.find('text').html(lineData.name);
-
+  
             if (lineData.wftype == '2') {
                 $line[0].childNodes[1].setAttribute("stroke", "#ff3300");
                 $line[0].childNodes[1].setAttribute("marker-end", "url(#arrow2)");
@@ -1192,7 +1205,7 @@ function generateUUID() {
             }
         }
     };
-
+  
     $.fn.lrworkflow = function (op) {
         var dfop = {
             openNode: function () {},
@@ -1222,25 +1235,25 @@ function generateUUID() {
         $self[0].dfop = dfop;
         $.lrworkflow.render($self);
     };
-
+  
     $.fn.lrworkflowGet = function () {
         var $self = $(this);
         var $workArea = $self.find(".lr-workflow-workinner");
         var dfop = $workArea[0].dfop;
-
+  
         var data = {
             nodes: dfop.node,
             lines: dfop.line
         };
-
+  
         return data;
     }
-
+  
     $.fn.lrworkflowSet = function (name, op) {
         var $self = $(this);
-
+  
         var $workArea = $self.find(".lr-workflow-workinner");
-
+        // console.log($workArea,"$workArea")
         switch (name) {
             case 'updateNodeName':
                 $.lrworkflow.updateNodeName($workArea, op.nodeId);
@@ -1249,7 +1262,9 @@ function generateUUID() {
                 $.lrworkflow.updateLineName($workArea, op.lineId);
                 break;
             case 'set':
+                // console.log($workArea,$workArea[0],"dfop")
                 var dfop = $workArea[0].dfop;
+               
                 for (var i = 0, l = op.data.nodes.length; i < l; i++) {
                     var node = op.data.nodes[i];
                     $.lrworkflow.addNode($workArea, dfop, node, true);
@@ -1261,5 +1276,6 @@ function generateUUID() {
                 break;
         }
     }
-
-})(jQuery, top.learun);
+  
+  })(jQuery, top.learun);
+  
