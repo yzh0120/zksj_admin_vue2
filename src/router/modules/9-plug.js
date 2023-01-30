@@ -113,7 +113,6 @@ export default {
     {
       path: 'mxhflow',
       name: 'mxhflow',
-      // redirect: {name:"mxhflow-base"},
       component: blank,
       meta: {
         title: 'mxhflow',

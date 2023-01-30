@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/fileUp',
   name: 'fileUp',
-  redirect: {
-    name: "fileUp-base"
-  },
   component: layout,
   meta: {
     title: '文件上传',

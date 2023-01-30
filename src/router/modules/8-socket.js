@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/socket',
   name: 'socket',
-  redirect: {
-    name: "socket-base"
-  },
   component: layout,
   meta: {
     title: 'socket后端推送',

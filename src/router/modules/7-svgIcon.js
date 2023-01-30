@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
     path: '/svgIcon',
     name: 'svgIcon',
-    redirect: {
-        name: "svgIcon-base"
-    },
     component: layout,
     meta: {
         title: 'svg图标',

@@ -4,7 +4,6 @@ let blank = () => import("@/views/blank.vue")//二级菜单专属
 export default { 
     path: '/element-ui',
     name: 'element-ui',
-    redirect: {name:"element-ui-checkBox"},
     component:  layout,
     meta: {
         title: 'element-ui',

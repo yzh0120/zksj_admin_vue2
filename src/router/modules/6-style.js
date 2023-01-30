@@ -10,9 +10,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/style',
   name: 'style',
-  redirect: {
-    name: "style-transition"
-  },
   component: layout,
   meta: {
     title: 'style',

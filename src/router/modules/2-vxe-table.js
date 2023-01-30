@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/vxeTable',
   name: 'vxeTable',
-  redirect: {
-    name: "vxeTable-base"
-  },
   component: layout,
   meta: {
     title: 'vxeTable',

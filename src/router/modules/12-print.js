@@ -5,7 +5,6 @@ let blank = () => import("@/views/blank.vue")//二级菜单专属
 export default { 
     path: '/print',//修改
     name: 'print',//修改
-    redirect: {name:"print-base"},//修改
     component:  layout,
 	meta:{
 		title: "打印",

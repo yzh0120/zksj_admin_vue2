@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/fastCopy',
   name: 'fastCopy',
-  redirect: {
-    name: "fastCopy-base"
-  },
   component: layout,
   meta: {
     title: '整个页面复制',

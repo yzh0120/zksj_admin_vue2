@@ -5,9 +5,6 @@ export default {
 	path: '/VCharts',
 	name: 'VCharts',
 	component: layout,
-	redirect: {
-		name: "VCharts-histogram-base"
-	},
 	meta: {
 		title: '数据可视化',
 		icon: "tubiao-zhexiantu",
@@ -16,9 +13,6 @@ export default {
 			path: 'histogram',
 			name: "VCharts-histogram",
 			component: blank, //() => import(/* webpackChunkName: "VCharts-histogram" */"@/views/10-vCharts/histogram.vue"),
-			redirect: {
-				name: "VCharts-histogram-base"
-			},
 			meta: {
 				title: '柱状图',
 				icon: "tubiao-zhexiantu",
@@ -135,9 +129,6 @@ export default {
 					path: 'other',
 					name: "VCharts-histogram-other",
 					component: blank, //() => import(/* webpackChunkName: "VCharts-Pie" */"@/views/10-vCharts/pie.vue"),
-					redirect: {
-						name: "VCharts-histogram-other-one"
-					},
 					meta: {
 						title: '其他的',
 						icon: "tubiao-zhexiantu",
@@ -249,9 +240,6 @@ export default {
 			path: 'base',
 			name: "VCharts-line",
 			component: blank, //() => import(/* webpackChunkName: "VCharts-base" */"@/views/10-vCharts/line.vue"),
-			redirect: {
-				name: "VCharts-line-base"
-			},
 			meta: {
 				title: '折线图',
 				icon: 'e79a',
@@ -270,9 +258,6 @@ export default {
 			path: 'pie',
 			name: "VCharts-pie",
 			component: blank, //() => import(/* webpackChunkName: "VCharts-Pie" */"@/views/10-vCharts/pie.vue"),
-			redirect: {
-				name: "VCharts-pie-base"
-			},
 			meta: {
 				title: '饼图',
 				icon: "tubiao-zhexiantu",

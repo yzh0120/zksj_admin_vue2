@@ -4,9 +4,6 @@ let blank = () => import("@/views/blank.vue") //二级菜单专属
 export default {
   path: '/localCopy',
   name: 'localCopy',
-  redirect: {
-    name: "localCopy-disabled"
-  },
   component: layout,
   meta: {
     title: '局部复制',
