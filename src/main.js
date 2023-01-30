@@ -24,6 +24,19 @@ Vue.prototype.$fileType = ["pdf", "doc", "docx", "xls", "xlsx", "jpg", "jpeg", "
 
 /** 插件 *******************************************************************************************************/
 
+//VueSocketIO
+import VueSocketIO from 'vue-socket.io'
+Vue.use(new VueSocketIO({
+  debug: true, //开启debug模式
+  connection: 'http://localhost:4000', //连接地址
+  options: {
+    autoConnect: false, //是否一进网站就链接socket
+    query: {
+      token: ''
+    },
+  },
+}))
+
 import {
   getCookie
 } from './utils/auth'

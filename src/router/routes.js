@@ -14,7 +14,7 @@ import fileUp from "./modules/4-fileUp.js"
 import localCopy from "./modules/5-localCopy.js"
 import style from "./modules/6-style.js"
 import svgIcon from "./modules/7-svgIcon.js"
-
+import socket from "./modules/8-socket.js"
 import vCharts from "./modules/10-vCharts.js"
 import elementUi from "./modules/11-element-ui.js"
 import print from "./modules/12-print.js"
@@ -59,6 +59,7 @@ const routes = [{
   style,//css
   svgIcon, //图标
   fileUp, //文件上传
+  socket,//socket
   localCopy,//局部复制
   vCharts,//图表
   elementUi, //

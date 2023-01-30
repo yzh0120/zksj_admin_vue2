@@ -26,3 +26,13 @@ export function del(data) {
   //   data: data
   // })
 }
+
+
+//socket
+export function socket(data) {
+  return request({
+    url: "/socket",
+    method: "get",
+    data: data
+  })
+}

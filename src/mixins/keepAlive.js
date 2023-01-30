@@ -13,16 +13,33 @@ export default {
       },
     },
   },
+  watch: {
+        // socket
+        "$store.state.user.userInfo.id": {
+          handler(newVal, oldVal) {
+            if (newVal.length > 0) {
+              //存在
+              // console.log("1111111111111")
+              this.$socket.io.opts.query = {
+                token: 123, //localStorage.getItem("token") || '没有token'
+              };
+              this.$socket.open();
+            } else {
+              this.$socket.disconnect(); //中断socket连接
+            }
+          },
+          immediate: true,
+        },
+  },
   methods: {
     // 1、刷新当前 tagsView：
     _refreshCurrentTagsView(currV) {
       //再次请求菜单api
-
-      menuApi.getmodulelist({}).then((res) => {
-        if (res.code == 200) {
-          this.$store.commit('router/set_routes', change(translateDataToTree(res.data)))
-        }
-      })
+      // menuApi.getmodulelist({}).then((res) => {
+      //   if (res.code == 200) {
+      //     this.$store.commit('router/set_routes', change(translateDataToTree(res.data)))
+      //   }
+      // })
 
 
       this._delRouteCache(currV.path); //删除 右键菜单所指向的路由 的缓存
