@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: '插件',
-    icon: "lcd",
+    icon: "shezhi1",
   },
   children: [{
       path: 'wangEdit',

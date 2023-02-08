@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: '局部复制',
-    icon: "lcd",
+    icon: "shezhi1",
   },
   children: [{
     path: 'disabled',
@@ -15,7 +15,7 @@ export default {
     component: () => import( /* webpackChunkName: "localCopy-disabled" */ "@/views/5-localCopy/1-disabled.vue"),
     meta: {
       title: '禁用全部按钮',
-      icon: "lcd",
+      icon: "shezhi1",
     }
   },
   {
@@ -24,7 +24,7 @@ export default {
     component: () => import( /* webpackChunkName: "localCopy-fastAlert" */ "@/views/5-localCopy/2-fastAlert.vue"),
     meta: {
       title: '快速弹窗方便校验',
-      icon: "lcd",
+      icon: "shezhi1",
     }
     },
     {
@@ -33,7 +33,7 @@ export default {
       component: () => import( /* webpackChunkName: "localCopy-popSelect" */ "@/views/5-localCopy/3-popSelect.vue"),
       meta: {
         title: 'popSelect',
-        icon: "lcd",
+        icon: "shezhi1",
       }
     }
   ]

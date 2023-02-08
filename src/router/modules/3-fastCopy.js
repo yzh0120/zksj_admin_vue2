@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: '整个页面复制',
-    icon: "lcd",
+    icon: "shezhi1",
   },
   children: [{
     path: 'base',
@@ -15,7 +15,7 @@ export default {
     component: () => import( /* webpackChunkName: "fastCopy-base" */ "@/views/3-fastCopy/1-tableAlert.vue"),
     meta: {
       title: '表单弹窗页面',
-      icon: "lcd",
+      icon: "shezhi1",
     }
   }, {
     path: 'navPage',
@@ -23,7 +23,7 @@ export default {
     component: () => import( /* webpackChunkName: "fastCopy-navPage" */ "@/views/3-fastCopy/2-nav-page.vue"),
     meta: {
       title: '导航页面',
-      icon: "lcd",
+      icon: "shezhi1",
     }
   }]
 }

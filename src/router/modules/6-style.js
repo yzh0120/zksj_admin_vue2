@@ -13,7 +13,7 @@ export default {
   component: layout,
   meta: {
     title: 'style',
-    icon: "html5",
+    icon: "shezhi1",
   },
   children: [{
       path: 'transition',
@@ -21,7 +21,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-transition" */ "@/views/6-style/1-transition.vue"),
       meta: {
         title: 'transition',
-        icon: "html5",
+        icon: "shezhi1",
       }
     }, {
       path: 'transform2D',
@@ -29,7 +29,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-transform2D" */ "@/views/6-style/2-transform2D.vue"),
       meta: {
         title: 'transform2D',
-        icon: "html5",
+        icon: "shezhi1",
       }
     },
     {
@@ -38,7 +38,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-transform3D" */ "@/views/6-style/3-transform3D.vue"),
       meta: {
         title: 'transform3D',
-        icon: "html5",
+        icon: "shezhi1",
       }
     }, {
       path: 'animation',
@@ -46,7 +46,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-animation" */ "@/views/6-style/4-animation.vue"),
       meta: {
         title: 'animation',
-        icon: "html5",
+        icon: "shezhi1",
       }
     }, {
       path: 'vueTransition',
@@ -54,7 +54,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-vueTransition" */ "@/views/6-style/5-vueTransition.vue"),
       meta: {
         title: 'vueTransition',
-        icon: "html5",
+        icon: "shezhi1",
       }
     }, {
       path: 'vueTransitionGroup',
@@ -62,7 +62,7 @@ export default {
       component: () => import( /* webpackChunkName: "style-vueTransitionGroup" */ "@/views/6-style/6-vueTransitionGroup.vue"),
       meta: {
         title: 'vueTransitionGroup',
-        icon: "html5",
+        icon: "shezhi1",
       }
     }
   ]

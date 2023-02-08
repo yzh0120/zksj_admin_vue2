@@ -7,7 +7,7 @@ export default {
     component: layout,
     meta: {
         title: 'svg图标',
-        icon: "bulb-fill",
+        icon: "shezhi1",
     },
     children: [{
         path: 'base',
@@ -15,7 +15,7 @@ export default {
         component: () => import( /* webpackChunkName: "svgIcon-base" */ "@/views/7-svgIcon/1-base-svgIcon.vue"),
         meta: {
             title: 'svg图标',
-            icon: "bulb-fill",
+            icon: "shezhi1",
         }
     }, ]
 }

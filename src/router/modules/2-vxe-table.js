@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: 'vxeTable',
-    icon: "biaodanzujian-biaoge",
+    icon: "shezhi1",
   },
   children: [{
       path: 'base',
@@ -15,7 +15,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-base" */ "@/views/2-vxe-table/1-base.vue"),
       meta: {
         title: '基础',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
     {
@@ -24,7 +24,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-checkbox" */ "@/views/2-vxe-table/2-checkbox.vue"),
       meta: {
         title: '多选',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
     {
@@ -33,7 +33,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-radio" */ "@/views/2-vxe-table/3-radio.vue"),
       meta: {
         title: '单选',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
     {
@@ -42,7 +42,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-isCurrent" */ "@/views/2-vxe-table/4-isCurrent.vue"),
       meta: {
         title: '选中当前行',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
     {
@@ -51,7 +51,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-sum" */ "@/views/2-vxe-table/5-sum.vue"),
       meta: {
         title: '合计',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
     {
@@ -60,7 +60,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-sum" */ "@/views/2-vxe-table/6-shu.vue"),
       meta: {
         title: '竖向表格',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     },
 
@@ -71,7 +71,7 @@ export default {
       component: () => import( /* webpackChunkName: "vxeTable-table" */ "@/views/2-vxe-table/999-table.vue"),
       meta: {
         title: '原生表格',
-        icon: "biaodanzujian-biaoge",
+        icon: "shezhi1",
       }
     }
   ]

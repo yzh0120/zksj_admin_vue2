@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: '文件上传',
-    icon: "lcd",
+    icon: "shezhi1",
   },
   children: [{
     path: 'base',
@@ -15,7 +15,7 @@ export default {
     component: () => import( /* webpackChunkName: "fileUp-base" */ "@/views/4-fileUp/1-base.vue"),
     meta: {
       title: '文件上传',
-      icon: "lcd",
+      icon: "shezhi1",
     }
   }]
 }

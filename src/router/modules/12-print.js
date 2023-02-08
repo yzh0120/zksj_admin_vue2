@@ -8,7 +8,7 @@ export default {
     component:  layout,
 	meta:{
 		title: "打印",
-		icon: "input"
+		icon: "shezhi1"
 	},
     children: [
         {
@@ -17,7 +17,7 @@ export default {
             component: () => import(/* webpackChunkName: "print-one" */ "@/views/12-print/1-one.vue"),//修改
             meta: {
                 title: '打印单个',//修改
-                icon: "input"
+                icon: "shezhi1"
             }
         },
         {
@@ -26,7 +26,7 @@ export default {
             component: () => import(/* webpackChunkName: "print-more" */ "@/views/12-print/2-more.vue"),//修改
             meta: {
                 title: '打印多个',//修改
-                icon: "input"
+                icon: "shezhi1"
             }
         }
     ]

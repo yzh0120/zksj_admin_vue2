@@ -7,7 +7,7 @@ export default {
   component: layout,
   meta: {
     title: 'socket后端推送',
-    icon: "lcd",
+    icon: "shezhi1",
   },
   children: [{
     path: 'base',
@@ -15,7 +15,7 @@ export default {
     component: () => import( /* webpackChunkName: "socket-base" */ "@/views/8-socket/1-base.vue"),
     meta: {
       title: 'socket后端推送',
-      icon: "lcd",
+      icon: "shezhi1",
     }
   }]
 }
