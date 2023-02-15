@@ -1,3 +1,9 @@
+/*
+ * @Author: yz
+ * @Date: 2023-02-03 15:17:51
+ * @Description: 
+ * 
+ */
 import * as menuApi from "@/api/menu";
 export default {
   data() {
@@ -71,12 +77,15 @@ export default {
                   query: toV.query
                 }).then(() => {
                   if (doSome) {
-                    this._getData(toV.path)
+                    setTimeout(() => { 
+                      this._getData(toV.path,doSome)
+                    },500)
+                    
                   }
 
                 })
               }
-              // 最后一个
+              // 说明当前路由是最后一个
               else if (this.tagsViewList.length === k) this.$router.push({
                 path: arr[arr.length - 1].path,
                 query: arr[arr.length - 1].query
@@ -114,14 +123,15 @@ export default {
       if (lastView) {
         this.$router.push(lastView.path);
       } else {
-        if (route.name === "base") {
-          // to reload home page
-          this.$router.replace({
-            path: "/redirect" + route.path
-          });
-        } else {
-          this.$router.push("/");
-        }
+        this.$router.push("/");
+        // if (route.name === "base") {
+        //   // to reload home page
+        //   this.$router.replace({
+        //     path: "/redirect" + route.path
+        //   });
+        // } else {
+        //   this.$router.push("/");
+        // }
       }
     },
     // //删除页面缓存 被其他方法引用的方法
@@ -148,8 +158,8 @@ export default {
       }
     },
     _getData(key, doSome) {
-      let cache = this.$store.state.router.keepAliveComponentInstance.cache; //获取缓存对象
-      let keys = this.$store.state.router.keepAliveComponentInstance.keys; //获取已缓存fullPath的数组
+      let cache = this.$root.keepAlive.cache; //获取缓存对象
+      let keys = this.$root.keepAlive.keys; //获取已缓存fullPath的数组
       if (keys[0]) {
         let prefix = keys[0].split("/")[0]; //如果有transition标签 会有随机的前缀
         key = prefix + key;
@@ -157,7 +167,7 @@ export default {
 
       for (let i = 0; i < keys.length; i++) {
         //循环 已缓存fullPath的数组
-        // console.log("-"+keys[i]+"-" , "-"+key+"-",keys[i] == key,"2222222222222")
+        // console.log("----"+keys[i]+"-" , "----"+key+"----",keys[i] == key,"2222222222222")
         if (keys[i] == key) {
           //如果 已缓存fullPath的数组 的某个 fullPath 等于传入的 fullPath
           if (cache[key] != null) {
@@ -168,6 +178,7 @@ export default {
               res = res[item]
             })
             res()
+            
           }
           break;
         }

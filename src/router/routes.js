@@ -19,6 +19,7 @@ import plug from "./modules/9-plug.js"
 import vCharts from "./modules/10-vCharts.js"
 import elementUi from "./modules/11-element-ui.js"
 import print from "./modules/12-print.js"
+import tagsView from "./modules/13-tagsView.js"
 import {
   status
 } from "./modules/status.js"
@@ -66,6 +67,7 @@ const routes = [{
   vCharts,//图表
   elementUi, //
   print,//打印
+  tagsView,//tagsView
   ...status, //状态和登录页
 ]
 
