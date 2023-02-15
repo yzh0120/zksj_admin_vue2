@@ -35,9 +35,10 @@
 
 <script>
 import { removeCookie, setCookie, getCookie } from "@/utils/auth";
+import keepAlive from "@/mixins/keepAlive";
 export default {
   name: "user",
-
+  mixins: [keepAlive],
   computed: {
     userInfo() {
       console.log(this.$store.getters.userInfo);
@@ -56,13 +57,25 @@ export default {
     onDropdownCommand(path) {
       if (path == "logOut") {
         removeCookie("token");
+        this._closeAllTagsView(this.$route)
+        this.$store.state.router.routes = []//
         this.$router.push({ name: "login" }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
       } else {
         this.$router.push(path);
       }
     },
+    // onDropdownCommand(path) {
+    //   if (path == "logOut") {
+    //     removeCookie("token");
+    //     this.$router.push({ name: "login" }).then(() => {
+    //       window.location.reload();
+    //     });
+    //   } else {
+    //     this.$router.push(path);
+    //   }
+    // },
 
     onComponentSizeChange(size) {
       this.$ELEMENT.size = size;
