@@ -24,6 +24,7 @@ function fnStatic() {
 }
 
 module.exports = {
+  transpileDependencies: ["*"] ,
   publicPath: fnStatic(),
   // publicPath: process.env.ENV === 'test' ? '/oawebuat/' : '/',
   productionSourceMap: false,
