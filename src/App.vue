@@ -7,16 +7,49 @@
 <script>
 export default {
   name: "App",
+  // watch: {
+  //       // socket
+  //       "$store.state.user.userInfo.id": {
+  //         handler(newVal, oldVal) {
+  //           if (newVal.length > 0) {
+  //             //存在
+  //             // console.log("1111111111111")
+  //             this.$socket.io.opts.query = {
+  //               token: 123, //localStorage.getItem("token") || '没有token'
+  //             };
+  //             this.$socket.open();
+  //           } else {
+  //             this.$socket.disconnect(); //中断socket连接
+  //           }
+  //         },
+  //         immediate: true,
+  //       },
+  // },
   watch: {
-    $route: {
-      //保存上一次的路由,之所以放在这里 是保证已经进了路由了
-      handler(newVal, oldVal) {
-        if (oldVal) {
-          this.$store.commit("router/preRoute_fn", oldVal);
-        }
-      },
-      immediate: true,
-    },
+            "$store.state.user.userInfo.id": {
+          handler(newVal, oldVal) {
+            if (newVal && newVal.length > 0) {
+              //存在
+              // console.log("1111111111111")
+              this.$socket.io.opts.query = {
+                token: 123, //localStorage.getItem("token") || '没有token'
+              };
+              this.$socket.open();
+            } else {
+              this.$socket.disconnect(); //中断socket连接
+            }
+          },
+          immediate: true,
+        },
+    // $route: {
+    //   //保存上一次的路由,之所以放在这里 是保证已经进了路由了
+    //   handler(newVal, oldVal) {
+    //     if (oldVal) {
+    //       this.$store.commit("router/preRoute_fn", oldVal);
+    //     }
+    //   },
+    //   immediate: true,
+    // },
   },
   created() {
     // this.favicon();
