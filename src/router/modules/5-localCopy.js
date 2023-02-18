@@ -35,6 +35,15 @@ export default {
         title: 'popSelect',
         icon: "shezhi1",
       }
+    },
+    {
+      path: 'inputIcon',
+      name: 'localCopy-inputIcon',
+      component: () => import( /* webpackChunkName: "localCopy-inputIcon" */ "@/views/5-localCopy/4-inputIcon.vue"),
+      meta: {
+        title: 'inputIcon',
+        icon: "shezhi1",
+      }
     }
   ]
 }
