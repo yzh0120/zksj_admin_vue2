@@ -17,6 +17,10 @@ E:\mygit\zksj_admin_vue2\src\layout\components\aside\index.vue  .two_aside-div
 # 2修改缩起的侧边栏 宽度 
 E:\mygit\zksj_admin_vue2\src\layout\index.vue                 .isCollapse
 E:\mygit\zksj_admin_vue2\src\layout\components\aside\index.vue     .isCollapse.two_aside-div
+
+# 3修改header高度
+E:\mygit\zksj_admin_vue2\src\layout\components\header\index.vue  heigth: "84px",
+E:\mygit\zksj_admin_vue2\src\styles\app.scss   .el-main{ 
 ### 1、项目介绍
 该项目是一个基于 [vue2](https://cn.vuejs.org) + [elementui](https://element.eleme.cn/) + [vxe-table](https://vxetable.cn/) 开发的前后端分离的项目
 
