@@ -9,6 +9,8 @@ import router from '@/router'
 import {
   getCookie
 } from '@/utils/auth.js';
+import md5 from "js-md5"
+import aes from "@/utils/aes"
 
 
 
@@ -30,6 +32,15 @@ service.interceptors.request.use(
         config.url = config.url + `?timestamp=${new Date().getTime()}`
       }
     }
+
+    // let Pdata = {
+    //     "appid": process.env.VUE_APP_AESAPPID,
+    //     "p": aes.encrypt(JSON.stringify(config.data)),
+    //     "sign": md5(JSON.stringify(config.data) + process.env.VUE_APP_AESSIGN).toUpperCase(),
+    // }
+    // console.log(Object.assign(Pdata, config.data),"Object.assign(Pdata, config.data)")
+
+    // config.data = Object.assign(Pdata, config.data)
 
     return config;
   },
