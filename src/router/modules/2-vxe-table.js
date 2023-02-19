@@ -1,3 +1,9 @@
+/*
+ * @Author: yz
+ * @Date: 2023-02-03 15:17:51
+ * @Description: 
+ * 
+ */
 let layout = () => import("@/layout/index.vue")
 let blank = () => import("@/views/blank.vue") //二级菜单专属
 
@@ -57,13 +63,21 @@ export default {
     {
       path: 'shu',
       name: 'vxeTable-shu',
-      component: () => import( /* webpackChunkName: "vxeTable-sum" */ "@/views/2-vxe-table/6-shu.vue"),
+      component: () => import( /* webpackChunkName: "vxeTable-shu" */ "@/views/2-vxe-table/6-shu.vue"),
       meta: {
         title: '竖向表格',
         icon: "shezhi1",
       }
     },
-
+    {
+      path: 'input',
+      name: 'vxeTable-input',
+      component: () => import( /* webpackChunkName: "vxeTable-input" */ "@/views/2-vxe-table/7-input.vue"),
+      meta: {
+        title: 'input表格',
+        icon: "shezhi1",
+      }
+    },
 
     {
       path: 'table',
