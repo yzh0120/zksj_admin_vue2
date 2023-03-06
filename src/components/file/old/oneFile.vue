@@ -47,9 +47,13 @@
   <span>
     <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress>
 
-    <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :http-request="changeFile"
-      :show-file-list="false" multiple   :on-change="handleChange"  :on-progress="progress">
-      <el-button :disabled="btnDisabled" :size="size" type="primary">{{ btnText }}
+    <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :show-file-list="false" multiple
+      :on-success="upLoadSuccess" :on-error="error" :before-upload="
+        (file) => {
+          return beforeUpload(file, uploadObj);
+        }
+      " :on-change="handleChange" :headers="uploadHeaders" :on-progress="progress">
+      <el-button :disabled="btnDisabled" :size="size" type="primary" v-on:click="setUploaduUrl">{{ btnText }}
       </el-button>
     </el-upload>
 
@@ -63,9 +67,28 @@ import {
   getCookie
 } from '@/utils/auth.js';
 import * as fileApi from "@/api/file";
-import * as eleFileApi from "@/api/eleFile";
+/* 
+ up:{
+          name: "中标通知书",
+          taskName: "中标通知书",
+          detail: [
+        
+        {
+        num:3,  
+        type:["doc", "docx"]
+        }
+      ],
+          require: 0,
+        },
+ */
+// let currentNum = 0;
+
 export default {
   props: {
+    // limit: {
+    //       type: Number,
+    //       default: null,
+    //     },
     //项目id
     projectId: {
       type: [String, Number],
@@ -79,16 +102,14 @@ export default {
       },
     },
     //上传路径可选
-    pathUrl: {
+    path: {
       type: String,
       default: "",
     },
-    //按钮名称
     btnText: {
       type: String,
       default: "上传资料",
     },
-    //文件大小
     size: {
       type: String,
       default: "mini",
@@ -100,6 +121,10 @@ export default {
       percentage: 0,
       uploaduUrl: "", //process.env.VUE_APP_down_API + "/v1/base/file/upload", //上传地址
       btnDisabled: false,
+      uploadHeaders: {
+        //上传头
+        Authorization: getCookie("token"),
+      },
     };
   },
   created() {
@@ -107,66 +132,58 @@ export default {
 
   },
   methods: {
-    changeFile() {
-
-    },
     //获取文件
     getFiles() {
       ///////////////////切换
       if (this.projectId) {
-        eleFileApi.queryList(
-          {
+        fileApi
+          .getFileListByFolderId({
             folderId: this.projectId,
             taskName: this.uploadObj.taskName,
-          }
-        ).then((res) => {
-          if (res.code == 200) {
-            this.uploadObj.detail = res.data;
-          } else { 
-            this.$message.error(res.msg);
-          }
-         })
+          })
+          .then((res) => {
+            if (res.code == 200) {
+              this.uploadObj.detail = res.data;
+            } else {
+              this.$message.error(res.info);
+            }
+          });
       }
 
     },
+    // 0 设置路由
+    setUploaduUrl() {
+      // if (this.url) {
+      //   this.uploaduUrl =
+      //     process.env.VUE_APP_BASE_API + this.url
+      // } else if (this.projectId) {
+      //   this.uploaduUrl =
+      //     process.env.VUE_APP_BASE_API +
+      //     "/v1/base/file/upload" +
+      //     "?folderId=" +
+      //     this.projectId +
+      //     "&taskName=" +
+      //     this.uploadObj.taskName;
+      // }
 
-    //1 点击上传文件时的改变事件
-    handleChange() {
-      console.log("文件改变事件")
-      this.btnDisabled = !this.btnDisabled;
-    },
-    //2 取消默认上传事件
-    changeFile(file) { //
-      console.log("自定义上传事件")
-      if (!this.beforeUpload(file.file, this.uploadObj)) {
-        this.btnDisabled = !this.btnDisabled;
-        return
+      if (this.path) {
+        this.uploaduUrl = `${process.env.VUE_APP_BASE_API}${this.path}`
+      } else if (this.projectId) {
+        this.uploaduUrl = `${process.env.VUE_APP_BASE_API}/v1/base/file/upload?folderId=${this.projectId}&taskName=${this.uploadObj.taskName}`
       }
-      let fd = new FormData()
-      fd.append('file', file.file)// 传文件
-      fd.append('folderId', this.projectId)
-      fd.append('taskName', this.uploadObj.taskName)
-      eleFileApi.uploadFile(fd).then((res) => {
-        this.btnDisabled = !this.btnDisabled;
-        console.log(res, "res")
-        let { data } = res//data是包含人工code的对象
-        if (data.code == 200) {//上传成功
-          this.upLoadSuccess(data.data,file.file)
-        } else { //上传失败
-          this.$message.error(res.msg);
-        }
-      })
 
     },
-    // 上传图片之前
+    // 1 上传图片之前
     beforeUpload(file, item) {
-      console.log("文件校验是否合法事件")
-      let activeFileType = file.name.split(".").pop();//文件类型
+      let activeFileType = file.name.split(".").pop();
+      // return new Promise((resolve, reject) => {
       if (item.num && item.detail.length + this.currentNum >= item.num) {
         this.btnDisabled = !this.btnDisabled;
         this.$message.error(`只能上传${item.num}个`);
+        // reject();
         return false;
       }
+      // if (item.type && item.type.length && !item.type.some(p => p == activeFileType)) {//!item.type.includes(activeFileType)
       else if (
         item.type &&
         item.type.length &&
@@ -174,16 +191,23 @@ export default {
       ) {
         this.$message.error(`请上传正确的文件类型`);
         this.btnDisabled = !this.btnDisabled;
+        // reject();
         return false;
       } else {
+        // resolve();
         this.currentNum++;
         return true;
       }
+      // });
     },
-    //文件上传中
+    //2 点击上传文件时的改变事件
+    handleChange() {
+      this.btnDisabled = !this.btnDisabled;
+    },
+    //2.5 文件上传中
     progress(event, file, fileList) {
-      console.log("文件上传中,对于自定义上传貌似没用")
       this.percentage = 0;
+      // this.uploadPercentVisited = true;
       this.$nextTick(() => {
         this.percentage = Number(file.percentage.toFixed(0));
         if (this.percentage >= 100) {
@@ -191,39 +215,56 @@ export default {
         }
       });
     },
-    //文件上传成功
-    upLoadSuccess(data, file) {
-      console.log("文件上传成功")
-      this.currentNum = 0;
-        this.$message.success(data.fileName + "上传成功！");
-        if (this.pathUrl) {
+    //3 文件上传成功
+    upLoadSuccess(res, file, fileList) {
+      if (res.code == 200) {
+        this.currentNum = 0;
+        this.$message.success(res.data.fileName + "上传成功！");
+
+
+        if (this.path) {
           this.$emit("success", {
             taskName: this.uploadObj.taskName,
-            data,
+            res,
             file,
+            fileList,
           });
         }
-      else if (this.projectId) {
-        eleFileApi.queryList(
-          {
-            folderId: this.projectId,
-            taskName: this.uploadObj.taskName,
-          }
-        ).then((res) => {
-          if (res.code == 200) {
+        if (this.projectId) {
+          fileApi
+            .getFileListByFolderId({
+              folderId: this.projectId,
+              taskName: this.uploadObj.taskName,
+            })
+            .then((res) => {
+              if (res.code == 200) {
                 this.uploadObj.detail = res.data;
                 this.$emit("success", {
                   taskName: this.uploadObj.taskName,
-                  data:res.data,
+                  res,
                   file,
+                  fileList,
                 });
-          } else { 
-            this.$message.error(res.msg);
-          }
-         })
+              } else {
+                this.$message.error(res.info);
+              }
+            });
         }
-    },
 
+
+        //      this.$emit("success", {///////////////////切换
+        // taskName: this.uploadObj.taskName,
+        // res,
+        // file,
+        // fileList,
+        //       });
+      } else {
+        this.$message.error(res.info);
+      }
+    },
+    error() {
+      this.btnDisabled = !this.btnDisabled;
+    },
   },
 };
 </script>

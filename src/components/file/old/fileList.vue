@@ -1,7 +1,7 @@
 <template>
   <div>
     <panel>
-      <div slot="header">
+      <div slot="head">
         <!-- <h4>资料文件信息</h4> -->
         资料文件信息
       </div>
