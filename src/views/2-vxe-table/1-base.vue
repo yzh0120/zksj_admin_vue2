@@ -159,7 +159,7 @@ export default {
           if (res.code == 200) {
             this.$message.success(res.info);
             this.getData();
-            this.cancel();
+            this.alertCancel();
           } else {
             this.$message.error(res.info);
           }

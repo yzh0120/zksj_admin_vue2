@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     confirm() {
-      this.cancel();
+      this.alertCancel();
     },
     cancel() {
       this.flag = false;
