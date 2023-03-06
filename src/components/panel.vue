@@ -175,7 +175,15 @@
     }
   }
   
-  
+	&.panel-mxh {
+    border-color: #F6384C;
+    // box-shadow: #ebccd1 0px 0px $fanwei;
+    > .panel-heading {
+      color: #ffffff;
+      background-color: #F6384C;
+      border-color: #F6384C;
+    }
+  }
   
   .panel-heading {
     padding: 10px 15px;
