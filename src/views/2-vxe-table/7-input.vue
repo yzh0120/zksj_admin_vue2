@@ -39,7 +39,7 @@ export default {
             field: "paidAmount",
             title: "实收金额(元)",
             editRender: {
-              autofocus: ".vxe-input--inner",
+              // autofocus: ".vxe-input--inner",
               placeholder: "请点击输入...",
             },
             slots: { edit: "paidAmount" },
@@ -48,7 +48,7 @@ export default {
             field: "tradingTime",
             title: "交易时间",
             editRender: {
-              autofocus: ".vxe-input--inner",
+              // autofocus: ".vxe-input--inner",
               placeholder: "请点击输入...",
             },
             slots: { edit: "tradingTime" },
