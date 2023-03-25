@@ -1,4 +1,7 @@
-.swiper-wrapper    轮播容器
+
+.swiper-container   轮播容器的视口 比swiper - wrapper 小
+
+.swiper - wrapper    轮播容器是所有item加起来的宽高
 
 .swiper-slide        所有轮播的基础类名
 
