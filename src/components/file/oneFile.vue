@@ -1,54 +1,10 @@
 
-
-
-
- <!-- 
- @success="(e)=>upLoadSuccess(e.res,e.taskName,e)"  这是此文件 有意的传参
- e是啥:
- {
-	 file:
-				name: "bc46ae05d293411786e930847ae79c86 (1).docx"
-				percentage: 100
-				raw: File
-				response: {code: 200, info: '成功', data: {…}} -> res
-				size: 14398
-				status: "success"
-				uid: 1645172356056
-				
-	 fileList: 就是 file 的集合
-	 res:    
-				code: 200
-				data:
-					appendCommentId: null
-					createTime: "2022-02-18 16:19:15"
-					createUserId: "1"
-					createUserName: "admin"
-					downloadCount: null
-					fileDes: null
-					fileExtensions: ".docx"
-					fileName: "bc46ae05d293411786e930847ae79c86 (1).docx"
-					filePath: "2022/02/4ebf70ae8ad84ce7bd0aa0023a94239d.docx"
-					fileSize: 14398
-					fileType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-					fileUrl: "http://api.szdbtest.zksj.com.cn/resources/"
-					folderId: "1470676865478955011"
-					id: "1494587302314455042"
-					isDeleted: null
-					onlinePreviewUrl: null
-					remarks: null
-					taskHistoryId: null
-					taskName: "中标通知书"
-					type: 2
-				info: "成功"
-	 taskName: 
- }
- -->
 <template>
   <span>
-    <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress>
+    <!-- <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress> -->
 
     <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :http-request="changeFile"
-      :show-file-list="false" multiple   :on-change="handleChange"  :on-progress="progress">
+      :show-file-list="false" multiple :on-change="handleChange" :on-progress="progress">
       <el-button :disabled="btnDisabled" :size="size" type="primary">{{ btnText }}
       </el-button>
     </el-upload>
@@ -58,14 +14,18 @@
 </template>
  
 <script>
-
-import {
-  getCookie
-} from '@/utils/auth.js';
-import * as fileApi from "@/api/file";
 import * as eleFileApi from "@/api/eleFile";
 export default {
   props: {
+    mode: {
+      type: String,
+      default: "",
+    },
+    //项目的文件id
+    fileId: {
+      type: [String, Number],
+      default: "",
+    },
     //项目id
     projectId: {
       type: [String, Number],
@@ -96,9 +56,9 @@ export default {
   },
   data() {
     return {
-      currentNum: 0,
-      percentage: 0,
-      uploaduUrl: "", //process.env.VUE_APP_down_API + "/v1/base/file/upload", //上传地址
+      currentNum: 0,//控制上传数量
+      percentage: 0,//控制进度条
+      // uploaduUrl: "", //process.env.VUE_APP_down_API + "/v1/base/file/upload", //上传地址
       btnDisabled: false,
     };
   },
@@ -107,9 +67,6 @@ export default {
 
   },
   methods: {
-    changeFile() {
-
-    },
     //获取文件
     getFiles() {
       ///////////////////切换
@@ -122,10 +79,18 @@ export default {
         ).then((res) => {
           if (res.code == 200) {
             this.uploadObj.detail = res.data;
-          } else { 
+            //如果是onlyOne模式 那个只会显示和id匹配的一个
+            if (this.mode == "onlyOne") {
+              // this.uploadObj.detail = [ res.data[res.data.length - 1] ];
+              let activeFile = res.data.find((e) => {
+                return e.id = this.fileId
+              })
+              this.uploadObj.detail = [activeFile]
+            }
+          } else {
             this.$message.error(res.msg);
           }
-         })
+        })
       }
 
     },
@@ -151,14 +116,14 @@ export default {
         console.log(res, "res")
         let { data } = res//data是包含人工code的对象
         if (data.code == 200) {//上传成功
-          this.upLoadSuccess(data.data,file.file)
+          this.upLoadSuccess(data.data, file.file)
         } else { //上传失败
           this.$message.error(res.msg);
         }
       })
 
     },
-    // 上传图片之前
+    //3 上传图片之前
     beforeUpload(file, item) {
       console.log("文件校验是否合法事件")
       let activeFileType = file.name.split(".").pop();//文件类型
@@ -181,29 +146,31 @@ export default {
       }
     },
     //文件上传中
-    progress(event, file, fileList) {
-      console.log("文件上传中,对于自定义上传貌似没用")
-      this.percentage = 0;
-      this.$nextTick(() => {
-        this.percentage = Number(file.percentage.toFixed(0));
-        if (this.percentage >= 100) {
-          this.percentage = 0;
-        }
-      });
-    },
-    //文件上传成功
+    // progress(event, file, fileList) {
+    //   console.log("文件上传中,对于自定义上传貌似没用")
+    //   this.percentage = 0;
+    //   this.$nextTick(() => {
+    //     this.percentage = Number(file.percentage.toFixed(0));
+    //     if (this.percentage >= 100) {
+    //       this.percentage = 0;
+    //     }
+    //   });
+    // },
+    //5 文件上传成功
     upLoadSuccess(data, file) {
       console.log("文件上传成功")
       this.currentNum = 0;
-        this.$message.success(data.fileName + "上传成功！");
-        if (this.pathUrl) {
-          this.$emit("success", {
-            taskName: this.uploadObj.taskName,
-            data,
-            file,
-          });
-        }
-      else if (this.projectId) {
+      this.$message.success(data.fileName + "上传成功！");
+      //如果是自定义的上传文件路径
+      if (this.pathUrl) {
+        this.$emit("success", {
+          taskName: this.uploadObj.taskName,
+          data,
+          file,
+        });
+      }
+      //如果有项目id并且没有模式  
+      else if (this.projectId && this.mode == "") {
         eleFileApi.queryList(
           {
             folderId: this.projectId,
@@ -211,16 +178,27 @@ export default {
           }
         ).then((res) => {
           if (res.code == 200) {
-                this.uploadObj.detail = res.data;
-                this.$emit("success", {
-                  taskName: this.uploadObj.taskName,
-                  data:res.data,
-                  file,
-                });
-          } else { 
+            this.uploadObj.detail = res.data;
+            this.$emit("success", {
+              taskName: this.uploadObj.taskName,
+              data: res.data,
+              file,
+            });
+          } else {
             this.$message.error(res.msg);
           }
-         })
+        })
+      }
+      //如果只有taskName并且 mode == "onlyOne"
+      else if (this.uploadObj.taskName || this.mode == "onlyOne") {
+          console.log(data,"data")
+          this.uploadObj.detail = [data];//data是单个文件
+          console.log(data.onlinePreviewUrl,'onlinePreviewUrlonlinePreviewUrlonlinePreviewUrl');
+          this.$emit("success", {
+              taskName: this.uploadObj.taskName,
+              data: data,
+              file,
+        });
         }
     },
 

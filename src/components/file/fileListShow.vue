@@ -35,7 +35,7 @@
         }
       ],
    */
-import * as fileApi from "@/api/file";
+   import * as eleFileApi from "@/api/eleFile";
 export default {
   // props: ["arr", "del"],
   props: {
@@ -56,7 +56,7 @@ export default {
     fileRemove(id, eleindex) {
       this.$confirm(`确定移除 ？`)
         .then(() => {
-          fileApi.del([id]).then((res) => {
+          eleFileApi.removeByIds({ids:id}).then((res) => {
             if (res.code == 200) {
               this.$message.success("删除成功");
               this.arr.splice(eleindex, 1);
@@ -68,8 +68,7 @@ export default {
         .catch(() => { });
     },
     downloadFile(item) {
-      // fileApi.download({ fileUrl: item.fileUrl + item.filePath });
-      fileApi.download({ fileId: item.id }, "/file/download");
+      eleFileApi.download({ fileId: item.id });
     },
   },
 };
