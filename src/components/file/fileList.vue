@@ -16,7 +16,7 @@
             <!-- 资料名称 -->
             <td>
               {{ item.name }}
-              <span style="color: red" v-if="item.require">*</span>
+              <span style="color: red" v-if="item.require || item.required">*</span>
             </td>
             <!-- 详情 -->
             <td>
@@ -70,7 +70,7 @@ export default {
       let checkOK = true;
       try {
         this.fileList.forEach((item) => {
-          if (item.required) {
+          if (item.required || item.require) {
             if (!item.detail[0]) {
               this.$message.error(`请上传${item.name}`);
               checkOK = false;

@@ -243,10 +243,17 @@ export default {
       return this.data.data;
     },
     labelWidth() {
-      if (this.data.inline && !this.data.titleWidth) {
+      if (this.data.inline && !(this.data.titleWidth || this.data.labelWidth)) {
         return "";
       }
-      return this.data.titleWidth ? this.data.titleWidth : "160px";
+      if (this.data.titleWidth) {
+        return this.data.titleWidth
+      } else if (this.data.labelWidth) {
+        return this.data.labelWidth
+      } else { 
+        return "160px"
+      }
+      // return this.data.titleWidth ? this.data.titleWidth : "160px";
     },
     span() {
       return this.data.span;
