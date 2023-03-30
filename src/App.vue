@@ -85,7 +85,14 @@ export default {
       this.$socket.connect(); //重新socket连接 */
     },
   },
+  mounted() {
+    this.$store.commit("config/windowResize");
+    window.addEventListener("resize", this.clientXY);
+  },
   methods: {
+    clientXY() {
+      this.$store.commit("config/windowResize");
+    },
     favicon() {
       var link =
         document.querySelector("link[rel*='icon']") ||

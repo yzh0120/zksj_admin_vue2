@@ -7,10 +7,23 @@
 const state = {
   isCollapse: false,
   loading: false,
-  dataItem: {}
+  dataItem: {},
+  mobile: false,
+  window_innerWidth: undefined,
+		window_innerHeight: undefined,
 }
 
 const mutations = {
+  windowResize(state, params) { //是一个函数
+    let {
+      innerWidth,
+      innerHeight
+    } = window
+    state.window_innerWidth = innerWidth
+    state.window_innerHeight = innerHeight
+
+    state.mobile = state.window_innerWidth < 768 ? true : false;
+  },
   setCollapse(state, val) {
     state.isCollapse = val;
   }
