@@ -25,7 +25,7 @@ function fnStatic() {
 
 module.exports = {
   // transpileDependencies: ["*"] ,
-  transpileDependencies: ["crypto-js","vue-socket.io"] ,
+  // transpileDependencies: ["crypto-js","vue-socket.io"] ,
   publicPath: fnStatic(),
   // publicPath: process.env.ENV === 'test' ? '/oawebuat/' : '/',
   productionSourceMap: false,

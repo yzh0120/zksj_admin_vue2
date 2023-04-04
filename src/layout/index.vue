@@ -2,13 +2,12 @@
   <el-container class="one_index-container-aside-head-main">
     <!-- 侧边栏 -->
     <sidebar></sidebar>
-    <div class="one_index-container-head-main"
-      :class="[$store.state.config.isCollapse ? `isCollapse` : `noisCollapse`]">
-      <!-- 头部 -->
-      <topheader></topheader>
+    <el-container class="one_index-container-head-main">
+       <!-- 头部 -->
+       <topheader></topheader>
       <!-- 主体 -->
       <maincontent></maincontent>
-    </div>
+    </el-container>
   </el-container>
 </template>
 
