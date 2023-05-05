@@ -288,6 +288,15 @@ export default {
 						icon: "shezhi1",
 					},
 					component: () => import( /* webpackChunkName: "VCharts-pie-auto-radiusAndCenter" */ "@/views/10-vCharts/3-pie/3-radiusAndCenter.vue"),
+				},
+				{
+					path: '4-legend',
+					name: "VCharts-pie-auto-4-legend",
+					meta: {
+						title: '饼图-legend',
+						icon: "shezhi1",
+					},
+					component: () => import( /* webpackChunkName: "VCharts-pie-auto-4-legend" */ "@/views/10-vCharts/3-pie/4-legend.vue"),
 				}
 			]
 		},
