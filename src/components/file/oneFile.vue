@@ -51,12 +51,12 @@ export default {
     //按钮大小
     btnSize: {
       type: String,
-      default: "",
+      default: "mini",
     },
     //文件大小
     size: {
-      type: String,
-      default: "mini",
+      type: Number,
+      default: 100,
     }
   },
   data() {
