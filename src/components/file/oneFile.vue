@@ -5,7 +5,7 @@
 
     <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :http-request="changeFile"
       :show-file-list="false" multiple :on-change="handleChange" :on-progress="progress">
-      <el-button :disabled="btnDisabled" :size="size" type="primary">{{ btnText }}
+      <el-button :disabled="btnDisabled" :size="btnSize" type="primary">{{ btnText }}
       </el-button>
     </el-upload>
 
@@ -47,6 +47,11 @@ export default {
     btnText: {
       type: String,
       default: "上传资料",
+    },
+    //按钮大小
+    btnSize: {
+      type: String,
+      default: "",
     },
     //文件大小
     size: {
@@ -140,7 +145,13 @@ export default {
         this.$message.error(`请上传正确的文件类型`);
         this.btnDisabled = !this.btnDisabled;
         return false;
-      } else {
+      }
+      else if (item.size && ((file.size / 1024 / 1024) > item.size)) {
+        this.$message.error(`文件最大为${item.size}M`)
+        this.btnDisabled = !this.btnDisabled;
+        return false;
+      }
+      else {
         this.currentNum++;
         return true;
       }
