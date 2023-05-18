@@ -48,6 +48,10 @@
                 <template v-if="item.slot">
                   <slot :name="item.slot" />
                 </template>
+                  <!-- 是否复选框 -->
+                  <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -59,6 +63,10 @@
                 <template v-if="item.slot">
                   <slot :name="item.slot" />
                 </template>
+                  <!-- 是否复选框 -->
+                  <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -69,7 +77,7 @@
           </el-col>
         </el-row>
         <!-- 比如 搜索页面居中的按钮 -->
-        <slot />
+        <!-- <slot /> -->
       </template>
 
       <!-- 是否span -->
@@ -96,6 +104,10 @@
                 <template v-if="item.slot">
                   <slot :name="item.slot" />
                 </template>
+                <!-- 是否复选框 -->
+                <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -107,6 +119,10 @@
                 <template v-if="item.slot">
                   <slot :name="item.slot" />
                 </template>
+                 <!-- 是否复选框 -->
+                 <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -117,7 +133,7 @@
           </el-col>
         </el-row>
         <!-- 比如 搜索页面居中的按钮 -->
-        <slot />
+        <!-- <slot /> -->
       </template>
 
       <!-- 不是响应式 -->
@@ -141,6 +157,10 @@
             <template v-if="item.slot">
               <slot :name="item.slot" />
             </template>
+              <!-- 是否复选框 -->
+              <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {
                 event(e, item);
@@ -152,6 +172,10 @@
             <template v-if="item.slot">
               <slot :name="item.slot" />
             </template>
+              <!-- 是否复选框 -->
+              <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {
                 event(e, item);
@@ -160,8 +184,9 @@
           </div>
         </el-form-item>
         <!-- 比如 搜索页面居中的按钮 -->
-        <slot />
+        <!-- <slot /> -->
       </template>
+      <slot />
     </div>
   </el-form>
 </template>
@@ -222,6 +247,13 @@ export default {
       // immediate: true,
       // deep: true, // 深度监听
     },
+    // "formData": {//
+    //   handler: function () { 
+    //     console.log("data.data")
+    //     this.slotCheckAll()
+    //   }
+    // },
+    deep: true, // 深度监听
   },
   created() {
     this._updatedata(this.data);
@@ -231,6 +263,7 @@ export default {
     //this._addShow(this.data) //增加show 因为只会写在watch(写在data:{}也有效果)  所以不watch 暂时不用
     this._addDis(this.data); //增加disabled    可以直接写在data:{}
     this.back(); // 将form实例返回到父级
+    
   },
   computed: {
     disabled() {
@@ -344,6 +377,38 @@ export default {
     },
   },
   methods: {
+    slotCheckAll() { 
+      this.for_List.forEach((item) => { 
+        if (item.slotCheck) { 
+          console.log(this.formData,item.field,this.formData[item.field],"-------")
+          this.checkboxChange(this.formData[item.field],item)
+        }
+      })
+    },
+    checkboxChange(e, item) {
+      console.log(e)
+      if (e) {
+        item.checkArr.forEach((item) => {
+        this._set(this.data,item, {show:true})
+      })
+      } else { 
+        item.checkArr.forEach((item) => {
+        this._set(this.data,item, {show:false})
+      })
+      }
+      
+      // let arr = this.for_List.filter((for_ListItem) => { 
+      //   if (item.checkArr.includes(for_ListItem.field)) {
+      //     return true
+      //   } else { 
+      //     return false
+      //   }
+      // })
+
+      // arr.forEach(() => { 
+      //   this._set()
+      // })
+     },
     autoTrigger() {
       this.data.list.forEach((item) => {
         if (item.rules && item.rules.length) {

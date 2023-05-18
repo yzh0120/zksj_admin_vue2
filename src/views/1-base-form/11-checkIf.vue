@@ -11,6 +11,9 @@
 
       </template>
     </base-form>
+
+
+    <base-form :data="form2" ref="form2" @event="formEvent"></base-form>
   </page>
 </template>
 
@@ -70,39 +73,52 @@ export default {
         data: {},
         // titleWidth: "160px",
       },
-      // form2: {
-      //   span: true,
-      //   list: [
-      //     {
-      //       type: "input",
-      //       field: "_input",
-      //       title: "普通输入框",
-      //       span: 12,
-      //       rules: [
-      //         { required: true, message: "请输入" },
-      //         { validator: self.$validator.numberpoint },
-      //       ],
-      //     },
-      //     {
-      //       type: "input",
-      //       field: "_input",
-      //       title: "普通输入框",
-      //       span: 12,
-      //       rules: [
-      //         { required: true, message: "请输入" },
-      //         { validator: self.$validator.numberpoint },
-      //       ],
-      //     },
+      form2: {
+        span: true,
+        list: [
+          {
+            type: "input",
+            field: "_input1",
+            title: "普通输入框111",
+            span: 12,
+            rules: [
+              { required: true, message: "请输入" },
+              { validator: self.$validator.numberpoint },
+            ],
+          },
+          {
+            // type: "slotCheck",
+            slotCheck: "选择",
+            checkArr:[`_input222`],
+            field: "ccc",
+            span: 12,
+          },
+          {
+            type: "input",
+            field: "_input222",
+            title: "普通输入框",
+            span: 12,
+            rules: [
+              { required: true, message: "请输入" },
+              { validator: self.$validator.numberpoint },
+            ],
+          },
 
 
-      //     // { slot: "mySlot", field: "xxx", title: "", },//labelWidth:"0px"
-      //   ],
-      //   data: {},
-      //   // titleWidth: "160px",
-      // },
+          // { slot: "mySlot", field: "xxx", title: "", },//labelWidth:"0px"
+        ],
+        data: {},
+        // titleWidth: "160px",
+      },
     };
   },
   mounted() {
+    setTimeout(() => { 
+      // this.form2.data = {
+      //   ccc : true
+      // }
+      this.form2.data.ccc = true
+    },1000)
   },
   watch: {
       "form.data": {
@@ -117,7 +133,16 @@ export default {
         },
         immediate: true,
         deep:true
-      }
+    },
+    "form2.data": {
+        handler() { 
+        if (this.$refs.form2) { 
+          this.$refs.form2.slotCheckAll()
+        }
+        },
+        immediate: true,
+        deep:true
+    }
     },
   methods: {
  
