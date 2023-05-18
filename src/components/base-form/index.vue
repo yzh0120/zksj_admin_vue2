@@ -380,7 +380,7 @@ export default {
     slotCheckAll() { 
       this.for_List.forEach((item) => { 
         if (item.slotCheck) { 
-          console.log(this.formData,item.field,this.formData[item.field],"-------")
+          // console.log(this.formData,item.field,this.formData[item.field],"-------")
           this.checkboxChange(this.formData[item.field],item)
         }
       })
