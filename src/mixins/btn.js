@@ -44,7 +44,7 @@ export default {
     },
   },
   directives: {
-    // 注册一个局部的自定义指令 v-focus
+    // 注册一个局部的自定义指令 v-focus v-btn:submitFlow="btnArr"
     btn: {
       // 统一全部隐藏
       bind: function (el) {
