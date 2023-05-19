@@ -50,7 +50,7 @@
                 </template>
                   <!-- 是否复选框 -->
                   <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                    <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -65,7 +65,7 @@
                 </template>
                   <!-- 是否复选框 -->
                   <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                    <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -106,7 +106,7 @@
                 </template>
                 <!-- 是否复选框 -->
                 <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                  <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -121,7 +121,7 @@
                 </template>
                  <!-- 是否复选框 -->
                  <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                  <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -159,7 +159,7 @@
             </template>
               <!-- 是否复选框 -->
               <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {
@@ -174,7 +174,7 @@
             </template>
               <!-- 是否复选框 -->
               <template v-if="item.slotCheck">
-                  <el-checkbox v-model="formData[item.field]">{{ item.slotCheck }}</el-checkbox>
+                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {

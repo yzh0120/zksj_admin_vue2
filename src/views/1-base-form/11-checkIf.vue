@@ -89,7 +89,9 @@ export default {
           {
             // type: "slotCheck",
             slotCheck: "选择",
-            checkArr:[`_input222`],
+            checkArr: [`_input222`],
+            trueLabel: 1,
+            falseLabel:0,
             field: "ccc",
             span: 12,
           },
@@ -117,7 +119,7 @@ export default {
       // this.form2.data = {
       //   ccc : true
       // }
-      this.form2.data.ccc = true
+      this.form2.data.ccc = 1
     },1000)
   },
   watch: {
