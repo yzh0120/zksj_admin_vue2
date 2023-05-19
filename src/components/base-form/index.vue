@@ -258,6 +258,7 @@ export default {
   created() {
     this._updatedata(this.data);
     this.autoTrigger();
+    this.slotCheckAll()
   },
   mounted() {
     //this._addShow(this.data) //增加show 因为只会写在watch(写在data:{}也有效果)  所以不watch 暂时不用
