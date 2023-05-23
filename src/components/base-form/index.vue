@@ -247,12 +247,12 @@ export default {
       // immediate: true,
       // deep: true, // 深度监听
     },
-    // "formData": {//
-    //   handler: function () { 
-    //     console.log("data.data")
-    //     this.slotCheckAll()
-    //   }
-    // },
+    "formData": {//
+      handler: function () { 
+        console.log("data.data")
+        this.slotCheckAll()
+      }
+    },
     deep: true, // 深度监听
   },
   created() {
@@ -388,7 +388,7 @@ export default {
     },
     checkboxChange(e, item) {
       console.log(e)
-      if (e) {
+      if (e && e !== "0") {
         item.checkArr.forEach((item) => {
         this._set(this.data,item, {show:true})
       })
