@@ -52,6 +52,17 @@
                   <template v-if="item.slotCheck">
                     <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -66,6 +77,17 @@
                   <!-- 是否复选框 -->
                   <template v-if="item.slotCheck">
                     <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -108,6 +130,17 @@
                 <template v-if="item.slotCheck">
                   <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
@@ -122,6 +155,28 @@
                  <!-- 是否复选框 -->
                  <template v-if="item.slotCheck">
                   <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
                 </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
@@ -161,6 +216,17 @@
               <template v-if="item.slotCheck">
                 <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
                 </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {
                 event(e, item);
@@ -175,6 +241,17 @@
               <!-- 是否复选框 -->
               <template v-if="item.slotCheck">
                 <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+              <!-- 是否下拉框 -->
+              <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
                 </template>
             <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
               (e) => {
@@ -251,6 +328,7 @@ export default {
       handler: function () { 
         console.log("data.data")
         this.slotCheckAll()
+        this.slotSelectAll()
       }
     },
     deep: true, // 深度监听
@@ -259,6 +337,7 @@ export default {
     this._updatedata(this.data);
     this.autoTrigger();
     this.slotCheckAll()
+    this.slotSelectAll()
   },
   mounted() {
     //this._addShow(this.data) //增加show 因为只会写在watch(写在data:{}也有效果)  所以不watch 暂时不用
@@ -397,19 +476,27 @@ export default {
         this._set(this.data,item, {show:false})
       })
       }
-      
-      // let arr = this.for_List.filter((for_ListItem) => { 
-      //   if (item.checkArr.includes(for_ListItem.field)) {
-      //     return true
-      //   } else { 
-      //     return false
-      //   }
-      // })
-
-      // arr.forEach(() => { 
-      //   this._set()
-      // })
-     },
+    },
+    slotSelectAll() { 
+      this.for_List.forEach((item) => { 
+        if (item.slotSelect) { 
+          // console.log(this.formData,item.field,this.formData[item.field],"-------")
+          this.selectChange(this.formData[item.field],item)
+        }
+      })
+    },
+    selectChange(e, item) { 
+      // console.log(e)
+      if (e && e !== "0") {
+        item.checkArr.forEach((item) => {
+        this._set(this.data,item, {show:true})
+      })
+      } else { 
+        item.checkArr.forEach((item) => {
+        this._set(this.data,item, {show:false})
+      })
+      }
+    },
     autoTrigger() {
       this.data.list.forEach((item) => {
         if (item.rules && item.rules.length) {
