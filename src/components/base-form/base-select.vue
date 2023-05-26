@@ -13,11 +13,31 @@
  remote                                     远程搜索
  mult : true                                多标签选择模式
  disabled:true                              禁用
+
+
+     {
+                        title: "渠道名称",
+                        field: "channel_id",
+                        // slotField: ["channel_name"],
+                        labelField:["channel_name"],
+                        type: "select",
+                        opt: [
+                            //   { text: "通过", value: "5" },
+                            //   { text: "待审", value: "3" },
+                        ],
+                        text: "name",
+                        value: "id",
+                        span: 12,
+                        remote: self.select_remote,
+                        rules: [
+                            { required: true, message: "请填写", trigger: ["blur"] },
+                        ],
+                    }
  -->
 <template>
   <el-select
     style="width: 100%"
-    v-model="data[item.field]"
+    v-model="mvalue"
     :disabled="item.disabled"
     clearable
     :placeholder="_getPlaceholder(item)"
@@ -70,6 +90,21 @@ export default {
     },
   },
   computed: {
+    mvalue: {
+      get() {
+        // console.log(!this.item.opt.length , !this.item.remote)
+        if (!this.item.opt.length && this.item.remote) {
+          return this.data[this.item.labelField]
+        } else {
+          return this.data[this.item.field]
+        }
+      },
+      set(v) {
+        this.data[this.item.field] = v
+      },
+
+
+    },
     mult() {
       if (this.item.mult) {
         return true;

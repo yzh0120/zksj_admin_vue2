@@ -31,11 +31,15 @@ export default {
 					if (this.$fn.type(formInfo.data[item.field]) === "und") { //赋值给data
 						this.$set(formInfo.data, item.field, null)
 					}
-				}else if(item.slotField && this.$fn.type(item.slotField) === "arr"){//数组
-					          for(let key of item.slotField){
-					            this.$set(formInfo.data, key, "")
-					          }
-					        }
+				} else if (item.slotField && this.$fn.type(item.slotField) === "arr") { //数组
+					for (let key of item.slotField) {
+						this.$set(formInfo.data, key, "")
+					}
+				}else if (item.labelField && this.$fn.type(item.labelField) === "arr") { //数组
+					for (let key of item.labelField) {
+						this.$set(formInfo.data, key, "")
+					}
+				}
 
 			})
 		},
