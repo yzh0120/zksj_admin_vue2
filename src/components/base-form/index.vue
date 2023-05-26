@@ -167,17 +167,6 @@
                       />
                   </el-select>
                 </template>
-                <!-- 是否下拉框 -->
-                <template v-if="item.slotSelect">
-                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
-                    <el-option
-                        v-for="(childItem, childIndex) in item.opt"
-                        :key="childIndex"
-                        :label="childItem.text"
-                        :value="childItem.value"
-                      />
-                  </el-select>
-                </template>
                 <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
                   (e) => {
                     event(e, item);
