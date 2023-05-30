@@ -90,7 +90,7 @@ export default {
 		_setDatas(formInfo, fieldValue, valueStr) {
 			//只在组件外部使用
 			fieldValue.forEach((item_fieldValue) => {
-				this._set(formInfo.data, item_fieldValue, valueStr)
+				this._set(formInfo, item_fieldValue, valueStr)
 			})
 
 		},
