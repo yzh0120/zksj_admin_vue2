@@ -88,7 +88,7 @@ export default {
             if (this.mode == "onlyOne") {
               // this.uploadObj.detail = [ res.data[res.data.length - 1] ];
               let activeFile = res.data.find((e) => {
-                return e.id = this.fileId
+                return e.id == this.fileId
               })
               this.uploadObj.detail = [activeFile]
             }
