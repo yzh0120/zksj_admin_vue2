@@ -60,6 +60,7 @@ export default {
             if (res.code == 200) {
               this.$message.success("删除成功");
               this.arr.splice(eleindex, 1);
+              this.$emit("delFile")
             } else {
               this.$message.error(res.info);
             }
