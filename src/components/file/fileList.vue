@@ -50,10 +50,12 @@ export default {
       type: Boolean,
       default: true,
     },
+    //folderid
     projectId: {
       type: [String, Number],
       default: "",
     },
+    //文件列表
     fileList: {
       type: Array,
       default: () => {

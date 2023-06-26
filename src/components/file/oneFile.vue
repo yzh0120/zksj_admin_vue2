@@ -17,6 +17,7 @@
 import * as eleFileApi from "@/api/eleFile";
 export default {
   props: {
+    //模式
     mode: {
       type: String,
       default: "",
@@ -86,6 +87,11 @@ export default {
             this.uploadObj.detail = res.data;
             //如果是onlyOne模式 那个只会显示和id匹配的一个
             if (this.mode == "onlyOne") {
+              if (!this.fileId) {
+                this.uploadObj.detail = []
+                return this.$message.error("文件id是空！")
+
+              }
               // this.uploadObj.detail = [ res.data[res.data.length - 1] ];
               let activeFile = res.data.find((e) => {
                 return e.id == this.fileId
@@ -202,15 +208,15 @@ export default {
       }
       //如果只有taskName并且 mode == "onlyOne"
       else if (this.uploadObj.taskName || this.mode == "onlyOne") {
-          console.log(data,"data")
-          this.uploadObj.detail = [data];//data是单个文件
-          console.log(data.onlinePreviewUrl,'onlinePreviewUrlonlinePreviewUrlonlinePreviewUrl');
-          this.$emit("success", {
-              taskName: this.uploadObj.taskName,
-              data: data,
-              file,
+        console.log(data, "data")
+        this.uploadObj.detail = [data];//data是单个文件
+        console.log(data.onlinePreviewUrl, 'onlinePreviewUrlonlinePreviewUrlonlinePreviewUrl');
+        this.$emit("success", {
+          taskName: this.uploadObj.taskName,
+          data: data,
+          file,
         });
-        }
+      }
     },
 
   },
