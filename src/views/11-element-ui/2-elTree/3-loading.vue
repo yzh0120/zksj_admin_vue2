@@ -23,6 +23,7 @@ export default {
   methods: {
     // 懒加载点击node上的文字会触发  左边的箭头不会触发此方法
     nodeClick(data, node) {
+      //node.data = data
       console.log(data, node);
     },
     //一进页面也会执行此方法,所以不需要:data="treeData"
