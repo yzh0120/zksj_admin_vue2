@@ -18,7 +18,6 @@
      {
                         title: "渠道名称",
                         field: "channel_id",
-                        // slotField: ["channel_name"],
                         labelField:["channel_name"],
                         type: "select",
                         opt: [

@@ -131,12 +131,14 @@ export default {
             slotSelect: true,
             checkArr: [`_input222`],
             title: "请选择",
+            trueLabel: 0,
+            falseLabel: 1,
             opt: [{
               text: "是",
-              value: "1"
+              value: 0
             }, {
               text: "否",
-              value: "0"
+              value: 1
             }],
             field: "ccc",
             span: 12,
@@ -160,7 +162,7 @@ export default {
     setTimeout(() => {
       this.form2.data.ccc = 1
 
-      this.form3.data.ccc = "1"
+      this.form3.data.ccc = 1
     }, 1000)
   },
   watch: {

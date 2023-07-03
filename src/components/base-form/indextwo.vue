@@ -19,7 +19,7 @@
   } 
  -->
 
-<template>
+ <template>
   <el-form ref="form" :class="data.className" :model="formData" :label-width="labelWidth" style="margin-top: 20px"
     :inline="inline" :size="size" @submit.native.prevent :disabled="disabled">
     <div v-if="againShow">
@@ -27,36 +27,74 @@
       <template v-if="isRow">
         <!-- <el-row v-if="isRow"> -->
         <el-row>
-          <el-col :xs="item.xs" :sm="item.sm" :md="item.md" :lg="item.lg" :xl="item.xl" v-for="(item, index) in for_List"
-            :key="index + `row`">
+          <el-col :xs="item.xs" :sm="item.sm" :md="item.md" :lg="item.lg" :xl="item.xl"
+            v-for="(item, index) in for_List" :key="index + `row`">
             <!-- item.show === false ? false : true -->
             <el-form-item v-if="item.show === false ? false : true" :prop="item.field" :label="item.title"
               :rules="item.rules" :label-width="item.labelWidth">
-
-              <!--  -->
-              <template v-if="item.slot">
-                <slot :name="item.slot" />
+              <template v-if="item.labelTip" #label>
+                <!-- 问号提示 -->
+                <span>
+                  {{ item.title }}
+                  <el-tooltip class="item" effect="dark" :content="item.labelTip" placement="top-start">
+                    <i class="el-icon-question"></i>
+                  </el-tooltip>
+                </span>
               </template>
-              <!-- 是否复选框 -->
-              <template v-if="item.slotCheck">
-                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel"
-                  @change="(e) => { checkboxChange(e, item) }">{{ item.slotCheck }}</el-checkbox>
-              </template>
-              <!-- 是否下拉框 -->
-              <template v-if="item.slotSelect">
-                <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%"
-                  @change="(e) => { selectChange(e, item) }">
-                  <el-option v-for="(childItem, childIndex) in item.opt" :key="childIndex" :label="childItem.text"
-                    :value="childItem.value" />
-                </el-select>
-              </template>
-              <!-- 动态组件 -->
-              <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="(e) => {
-                  event(e, item);
-                }
+              <!-- 是否悬浮提示 -->
+              <el-tooltip class="item" effect="dark" placement="right" v-if="item.tip && formData[item.field]">
+                <div slot="content">{{ formData[item.field] }}</div>
+                <!-- 是否插槽 -->
+                <template v-if="item.slot">
+                  <slot :name="item.slot" />
+                </template>
+                  <!-- 是否复选框 -->
+                  <template v-if="item.slotCheck">
+                    <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+                <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
+                  (e) => {
+                    event(e, item);
+                  }
                 " :data="formData" v-else :dis="disabled" />
-              <!--  -->
+              </el-tooltip>
 
+              <div v-else>
+                <template v-if="item.slot">
+                  <slot :name="item.slot" />
+                </template>
+                  <!-- 是否复选框 -->
+                  <template v-if="item.slotCheck">
+                    <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+                <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
+                  (e) => {
+                    event(e, item);
+                  }
+                " :data="formData" v-else :dis="disabled" />
+              </div>
             </el-form-item>
           </el-col>
         </el-row>
@@ -72,31 +110,69 @@
             <!-- item.show === false ? false : true -->
             <el-form-item v-if="item.show === false ? false : true" :prop="item.field" :label="item.title"
               :rules="item.rules" :label-width="item.labelWidth">
-
-              <!--  -->
-              <template v-if="item.slot">
-                <slot :name="item.slot" />
+              <!-- 问号提示 -->
+              <template v-if="item.labelTip" #label>
+                <span>
+                  {{ item.title }}
+                  <el-tooltip class="item" effect="dark" :content="item.labelTip" placement="top-start">
+                    <i class="el-icon-question"></i>
+                  </el-tooltip>
+                </span>
               </template>
-              <!-- 是否复选框 -->
-              <template v-if="item.slotCheck">
-                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel"
-                  @change="(e) => { checkboxChange(e, item) }">{{ item.slotCheck }}</el-checkbox>
-              </template>
-              <!-- 是否下拉框 -->
-              <template v-if="item.slotSelect">
-                <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%"
-                  @change="(e) => { selectChange(e, item) }">
-                  <el-option v-for="(childItem, childIndex) in item.opt" :key="childIndex" :label="childItem.text"
-                    :value="childItem.value" />
-                </el-select>
-              </template>
-              <!-- 动态组件 -->
-              <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="(e) => {
-                  event(e, item);
-                }
+              <!-- 是否悬浮提示 -->
+              <el-tooltip class="item" effect="dark" placement="right" v-if="item.tip && formData[item.field]">
+                <div slot="content">{{ formData[item.field] }}</div>
+                <!-- 是否插槽 -->
+                <template v-if="item.slot">
+                  <slot :name="item.slot" />
+                </template>
+                <!-- 是否复选框 -->
+                <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+                <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
+                  (e) => {
+                    event(e, item);
+                  }
                 " :data="formData" v-else :dis="disabled" />
-              <!--  -->
+              </el-tooltip>
 
+              <div v-else>
+                <template v-if="item.slot">
+                  <slot :name="item.slot" />
+                </template>
+                 <!-- 是否复选框 -->
+                 <template v-if="item.slotCheck">
+                  <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+                <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="
+                  (e) => {
+                    event(e, item);
+                  }
+                " :data="formData" v-else :dis="disabled" />
+              </div>
             </el-form-item>
           </el-col>
         </el-row>
@@ -107,31 +183,71 @@
       <!-- 不是响应式 -->
       <template v-else>
         <!-- item.show === false ? false : true -->
-        <el-form-item v-for="(item, index) in for_List" v-if="item.show === false ? false : true" :key="index + 'normal'"
-          :prop="item.field" :label="item.title" :rules="item.rules" :label-width="item.labelWidth">
-          <!--  -->
-          <template v-if="item.slot">
-            <slot :name="item.slot" />
+        <el-form-item v-for="(item, index) in for_List" v-if="item.show === false ? false : true"
+          :key="index + 'normal'" :prop="item.field" :label="item.title" :rules="item.rules"
+          :label-width="item.labelWidth">
+          <!-- 问号提示 -->
+          <template v-if="item.labelTip" #label>
+            <span>
+              {{ item.title }}
+              <el-tooltip class="item" effect="dark" :content="item.labelTip" placement="top-start">
+                <i class="el-icon-question"></i>
+              </el-tooltip>
+            </span>
           </template>
-          <!-- 是否复选框 -->
-          <template v-if="item.slotCheck">
-            <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel"
-              @change="(e) => { checkboxChange(e, item) }">{{ item.slotCheck }}</el-checkbox>
-          </template>
-          <!-- 是否下拉框 -->
-          <template v-if="item.slotSelect">
-            <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%"
-              @change="(e) => { selectChange(e, item) }">
-              <el-option v-for="(childItem, childIndex) in item.opt" :key="childIndex" :label="childItem.text"
-                :value="childItem.value" />
-            </el-select>
-          </template>
-          <!-- 动态组件 -->
-          <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="(e) => {
-              event(e, item);
-            }
+          <el-tooltip class="item" effect="dark" placement="right" v-if="item.tip && formData[item.field]">
+            <div slot="content">{{ formData[item.field] }}</div>
+
+            <template v-if="item.slot">
+              <slot :name="item.slot" />
+            </template>
+              <!-- 是否复选框 -->
+              <template v-if="item.slotCheck">
+                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+                <!-- 是否下拉框 -->
+                <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+            <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
+              (e) => {
+                event(e, item);
+              }
             " :data="formData" v-else :dis="disabled" :bossData="data" />
-          <!--  -->
+          </el-tooltip>
+
+          <div v-else>
+            <template v-if="item.slot">
+              <slot :name="item.slot" />
+            </template>
+              <!-- 是否复选框 -->
+              <template v-if="item.slotCheck">
+                <el-checkbox v-model="formData[item.field]" :true-label="item.trueLabel" :false-label="item.falseLabel" @change="(e)=>{ checkboxChange(e,item) }">{{ item.slotCheck }}</el-checkbox>
+                </template>
+              <!-- 是否下拉框 -->
+              <template v-if="item.slotSelect">
+                  <el-select v-model="formData[item.field]" placeholder="请选择" style="width:100%" @change="(e)=>{ selectChange(e,item) }">
+                    <el-option
+                        v-for="(childItem, childIndex) in item.opt"
+                        :key="childIndex"
+                        :label="childItem.text"
+                        :value="childItem.value"
+                      />
+                  </el-select>
+                </template>
+            <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="
+              (e) => {
+                event(e, item);
+              }
+            " :data="formData" v-else :dis="disabled" :bossData="data" />
+          </div>
         </el-form-item>
         <!-- 比如 搜索页面居中的按钮 -->
         <!-- <slot /> -->
@@ -200,7 +316,7 @@ export default {
       // deep: true, // 深度监听
     },
     "formData": {//
-      handler: function () {
+      handler: function () { 
         console.log("data.data")
         this.slotCheckAll()
         this.slotSelectAll()
@@ -218,7 +334,7 @@ export default {
     //this._addShow(this.data) //增加show 因为只会写在watch(写在data:{}也有效果)  所以不watch 暂时不用
     this._addDis(this.data); //增加disabled    可以直接写在data:{}
     this.back(); // 将form实例返回到父级
-
+    
   },
   computed: {
     disabled() {
@@ -238,7 +354,7 @@ export default {
         return this.data.titleWidth
       } else if (this.data.labelWidth) {
         return this.data.labelWidth
-      } else {
+      } else { 
         return "160px"
       }
       // return this.data.titleWidth ? this.data.titleWidth : "160px";
@@ -332,49 +448,46 @@ export default {
     },
   },
   methods: {
-    slotCheckAll() {
-      this.for_List.forEach((item) => {
-        if (item.slotCheck) {
+    slotCheckAll() { 
+      this.for_List.forEach((item) => { 
+        if (item.slotCheck) { 
           // console.log(this.formData,item.field,this.formData[item.field],"-------")
-          this.checkboxChange(this.formData[item.field], item)
+          this.checkboxChange(this.formData[item.field],item)
         }
       })
     },
     checkboxChange(e, item) {
       console.log(e)
-      // if (e && e !== "0") {
-      if (e === item.trueLabel) {
+      if (e && e !== "0") {
         item.checkArr.forEach((item) => {
-          this._set(this.data, item, { show: true })
-        })
-      } else {
+        this._set(this.data,item, {show:true})
+      })
+      } else { 
         item.checkArr.forEach((item) => {
-          this._set(this.data, item, { show: false })
-        })
+        this._set(this.data,item, {show:false})
+      })
       }
     },
-    slotSelectAll() {
-      this.for_List.forEach((item) => {
-        if (item.slotSelect) {
+    slotSelectAll() { 
+      this.for_List.forEach((item) => { 
+        if (item.slotSelect) { 
           // console.log(this.formData,item.field,this.formData[item.field],"-------")
-          this.selectChange(this.formData[item.field], item)
+          this.selectChange(this.formData[item.field],item)
         }
       })
     },
-    selectChange(e, item) {
+    selectChange(e, item) { 
       // console.log(e)
-      // if (e && e !== "0") {
-      if (e === item.trueLabel) {
+      if (e && e !== "0") {
         item.checkArr.forEach((item) => {
-          this._set(this.data, item, { show: true })
-        })
-      } else {
+        this._set(this.data,item, {show:true})
+      })
+      } else { 
         item.checkArr.forEach((item) => {
-          this._set(this.data, item, { show: false })
-        })
+        this._set(this.data,item, {show:false})
+      })
       }
     },
-    //将不同的表单控件的rules的trigger设定
     autoTrigger() {
       this.data.list.forEach((item) => {
         if (item.rules && item.rules.length) {
@@ -445,7 +558,7 @@ export default {
         return "baseTextarea";
       } else if (componentType == "select") {
         return "baseSelect";
-      } else if (componentType == "selectf") {
+      }  else if (componentType == "selectf") {
         return "baseSelectF";
       } else if (componentType == "time") {
         return "baseTimeSelect";
