@@ -265,6 +265,7 @@ import baseTreeselect from "./base-treeselect.vue";
 import basePassword from "./base-password.vue";
 import baseTextarea from "./base-textarea.vue";
 import baseSelect from "./base-select.vue";
+import baseSelectF from "./base-select-f.vue";
 import baseTimeSelect from "./base-time-select.vue"; //时间选择器
 import baseDatePicker from "./base-date-picker.vue"; //日期选择器
 import baseSwitch from "./base-switch.vue"; //开关
@@ -277,6 +278,7 @@ export default {
     baseTextarea,
     baseInput,
     baseSelect,
+    baseSelectF,
     baseTimeSelect,
     // baseDateTimePicker,
     baseDatePicker,
@@ -556,6 +558,8 @@ export default {
         return "baseTextarea";
       } else if (componentType == "select") {
         return "baseSelect";
+      }  else if (componentType == "selectf") {
+        return "baseSelectF";
       } else if (componentType == "time") {
         return "baseTimeSelect";
       } else if (

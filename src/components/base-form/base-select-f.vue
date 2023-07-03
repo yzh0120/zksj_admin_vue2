@@ -13,29 +13,33 @@
  remote                                     远程搜索
  mult : true                                多标签选择模式
  disabled:true                              禁用
+
+
+     {
+                        title: "渠道名称",
+                        field: "channel_id",
+                        // slotField: ["channel_name"],
+                        labelField:["channel_name"],
+                        type: "select",
+                        opt: [
+                            //   { text: "通过", value: "5" },
+                            //   { text: "待审", value: "3" },
+                        ],
+                        text: "name",
+                        value: "id",
+                        span: 12,
+                        remote: self.select_remote,
+                        rules: [
+                            { required: true, message: "请填写", trigger: ["blur"] },
+                        ],
+                    }
  -->
- <template>
-  <el-select
-    style="width: 100%"
-    v-model="data[item.field]"
-    :disabled="item.disabled"
-    clearable
-    :placeholder="_getPlaceholder(item)"
-    @change="change"
-    @clear="setValueNull"
-    :multiple="mult || item.create"
-    :allow-create="item.create"
-    filterable
-    :filter-method="item.filterFn"
-    :remote="remote"
-    :remote-method="item.remote"
-  >
-    <el-option
-      v-for="(childItem, childIndex) in item.opt"
-      :key="childIndex"
-      :label="childItem[text]"
-      :value="childItem[value]"
-    />
+<template>
+  <el-select v-if="showTick" style="width: 100%" v-model="mvalue" :disabled="item.disabled" clearable
+    :placeholder="_getPlaceholder(item)" @change="change" @clear="setValueNull" :multiple="mult || item.create"
+    :allow-create="item.create" filterable :filter-method="item.filterFn" :remote="remote" :remote-method="item.remote">
+    <el-option v-for="(childItem, childIndex) in item.opt" :key="childIndex" :label="childItem[text]"
+      :value="childItem[value]" />
   </el-select>
 </template>
 
@@ -45,15 +49,17 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     item: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data() {
-    return {};
+    return {
+      showTick: true
+    };
   },
   methods: {
     change(nowValue) {
@@ -70,6 +76,26 @@ export default {
     },
   },
   computed: {
+    mvalue: {
+      get() {
+        // console.log(!this.item.opt.length , !this.item.remote)
+        if (!this.item.opt.length && this.item.remote) {
+          return this.data[this.item.labelField]
+        } else {
+          return this.data[this.item.field]
+        }
+      },
+      set(v) {
+        //this.data[this.item.field] = v
+        this.showTick = false
+        setTimeout(() => {
+          this.showTick = true
+          this.data[this.item.field] = v
+        }, 0)
+      },
+
+
+    },
     mult() {
       if (this.item.mult) {
         return true;
