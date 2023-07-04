@@ -1,4 +1,66 @@
 /**
+ * { validator: self.$validator.positivenumberpoint, trigger: "blur" },
+ * 正数和小数
+ * @param {*} rule 
+ * @param {*} value 
+ * @param {*} callback 
+ */
+export function positivenumberpoint(rule, value, callback) {
+  if (value) {
+    var reg = /^\d+(\.\d+)?$/;
+    if (reg.test(value) == false) {
+      callback("请输入正数和小数");
+    } else {
+      callback();
+    }
+  } else {
+    callback();
+  }
+}
+
+/**
+ * { validator: self.$validator.positivenumber, trigger: "blur" },
+ * 正数 
+ * @param {*} rule 
+ * @param {*} value 
+ * @param {*} callback 
+ */
+export function positivenumber(rule, value, callback) {
+  if (value) {
+    var reg = /^\d+$/;
+    if (reg.test(value) == false) {
+      callback("请输入正数");
+    } else {
+      callback();
+    }
+  } else {
+    callback();
+  }
+}
+
+/**
+ * { validator: self.$validator.creditCode, trigger: "blur" },
+ * 统一社会信用代码
+ * @param {*} rule 
+ * @param {*} value 
+ * @param {*} callback 
+ */
+export function creditCode(rule, value, callback) {
+  if (value) {
+    var reg = /^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/;
+    if (reg.test(value) == false) {
+      callback(new Error("统一社会信用代码格式不对"));
+    } else {
+      callback();
+    }
+  } else {
+    callback();
+  }
+}
+
+
+/**
+ * { validator: self.$validator.IDcard, trigger: "blur" },
  * 身份证正则（大陆，香港，新加坡）
  * @param {*} rule 
  * @param {*} value 
@@ -36,6 +98,12 @@ export function mobile(rule, value, callback) {
     callback();
   }
 }
+
+// { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 /**
  * 手机号和座机正则
@@ -157,24 +225,7 @@ export function numberpoint(rule, value, callback) {
   }
 }
 
-/**
- * 正数和小数
- * @param {*} rule 
- * @param {*} value 
- * @param {*} callback 
- */
-export function positivenumberpoint(rule, value, callback) {
-  if (value) {
-    var reg = /^\d+(\.\d+)?$/;
-    if (reg.test(value) == false) {
-      callback("请输入正数和小数");
-    } else {
-      callback();
-    }
-  } else {
-    callback();
-  }
-}
+
 
 /**
  * 正数和小数 0-100
@@ -197,24 +248,7 @@ export function positivenumberpoint_0_100(rule, value, callback) {
   }
 }
 
-/**
- * 正数
- * @param {*} rule 
- * @param {*} value 
- * @param {*} callback 
- */
-export function positivenumber(rule, value, callback) {
-  if (value) {
-    var reg = /^\d+$/;
-    if (reg.test(value) == false) {
-      callback("请输入正数");
-    } else {
-      callback();
-    }
-  } else {
-    callback();
-  }
-}
+
 
 /**
  * 有两位小数的正实数
@@ -392,24 +426,7 @@ export function taiwanpass(rule, value, callback) {
   }
 }
 
-/**
- * 统一社会信用代码
- * @param {*} rule 
- * @param {*} value 
- * @param {*} callback 
- */
-export function creditCode(rule, value, callback) {
-  if (value) {
-    var reg = /^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/;
-    if (reg.test(value) == false) {
-      callback(new Error("统一社会信用代码格式不对"));
-    } else {
-      callback();
-    }
-  } else {
-    callback();
-  }
-}
+
 
 /**
  * 大陆身份证正则
