@@ -110,7 +110,8 @@ export default {
 
 
     alertCancel() {
-      this._reset(this.formData)
+      // this._reset(this.formData)
+      this.formData.data = {}
       this.alertData.alert = false;
     },
     // 弹窗确认

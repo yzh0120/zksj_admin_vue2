@@ -400,13 +400,13 @@ export default {
         this.againShow = true;
       });
     },
-    reset() {
-      this.$refs.form.resetFields();
-      for (let key of Object.keys(this.data.data)) {
-        // this.data.data[key] = null;
-        this.$set(this.data.data, key, null)
-      }
-    },
+    // reset() {
+    //   this.$refs.form.resetFields();
+    //   for (let key of Object.keys(this.data.data)) {
+    //     // this.data.data[key] = null;
+    //     this.$set(this.data.data, key, null)
+    //   }
+    // },
     check() {
       let res = undefined;
       this.$refs.form.validate((valid) => {

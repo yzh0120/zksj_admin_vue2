@@ -148,7 +148,8 @@ export default {
     },
     // 弹窗取消
     alertCancel() {
-      this.$refs.formAlert.reset();
+      this.formAlert.data = {};
+      this.formAlert.data = {}
       this.alertData.alert = false;
     },
     // 弹窗确认

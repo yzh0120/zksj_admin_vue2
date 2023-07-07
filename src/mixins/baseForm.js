@@ -102,10 +102,10 @@ export default {
 		// 	this.$set(formInfo.data, fieldValue, null)
 		// },
 		//重置表单数据
-		_reset(formInfo) {
-			for (let key of Object.keys(formInfo.data)) {
-				this.$set(formInfo.data, key, null)
-			}
-		}
+		// _reset(formInfo) {
+		// 	for (let key of Object.keys(formInfo.data)) {
+		// 		this.$set(formInfo.data, key, null)
+		// 	}
+		// }
 	}
 }
