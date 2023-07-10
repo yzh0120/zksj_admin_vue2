@@ -400,6 +400,9 @@ export default {
         this.againShow = true;
       });
     },
+    clearValidate() {
+      this.$refs.form.clearValidate()
+    },
     // reset() {
     //   this.$refs.form.resetFields();
     //   for (let key of Object.keys(this.data.data)) {
