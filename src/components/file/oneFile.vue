@@ -96,7 +96,10 @@ export default {
               let activeFile = res.data.find((e) => {
                 return e.id == this.fileId
               })
-              this.uploadObj.detail = [activeFile]
+              if (activeFile) { 
+                this.uploadObj.detail = [activeFile]
+              }
+              
             }
           } else {
             this.$message.error(res.msg);
