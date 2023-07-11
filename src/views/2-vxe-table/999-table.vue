@@ -114,6 +114,44 @@
       </tbody>
     </table>
     <br />
+
+
+    <!--  -->
+    <panel>
+      <div slot="header">
+        
+      </div>
+
+      <table class="table keyvalue">
+      <tbody>
+        <tr>
+          <td>企业名称</td>
+          <td></td>
+          <td colspan="3"></td>
+          <td>统一社会信用代码</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>法人代表姓名</td>
+          <td></td>
+
+          <td>法人代表身份证</td>
+          <td>xxx</td>
+          <td>法人手机</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>实控人代表姓名</td>
+          <td></td>
+          <td>实控人代表身份证</td>
+          <td></td>
+          <td>实控人手机</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    </panel>
   </page>
 </template>
 

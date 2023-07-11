@@ -15,14 +15,24 @@ data：{
 
     <template #footer>
       <el-button @click="cancel" v-if="!msg" plain>取消</el-button>
-      <el-button type="primary" @click="confirm">确认</el-button>
+      <el-button type="primary" @click="confirm" :loading="data.loading">确认</el-button>
     </template>
   </vxe-modal>
 </template>
 
 <script>
 export default {
-  props: ["data"],
+  // props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: () => { 
+        return {
+          loading:false
+        }
+      }
+    }
+  },
   methods: {
     cancel() {
       // this.$emit("event", {
