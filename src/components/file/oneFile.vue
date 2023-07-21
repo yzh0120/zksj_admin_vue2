@@ -1,7 +1,7 @@
 
 <template>
   <span>
-    <!-- <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress> -->
+    <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress>
 
     <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :http-request="changeFile"
       :show-file-list="false" multiple :on-change="handleChange" :on-progress="progress">
@@ -15,6 +15,10 @@
  
 <script>
 import * as eleFileApi from "@/api/eleFile";
+import axios from 'axios';
+import {
+  getCookie
+} from '@/utils/auth.js';
 export default {
   props: {
     //模式
@@ -96,10 +100,10 @@ export default {
               let activeFile = res.data.find((e) => {
                 return e.id == this.fileId
               })
-              if (activeFile) { 
+              if (activeFile) {
                 this.uploadObj.detail = [activeFile]
               }
-              
+
             }
           } else {
             this.$message.error(res.msg);
@@ -125,7 +129,29 @@ export default {
       fd.append('file', file.file)// 传文件
       fd.append('folderId', this.projectId)
       fd.append('taskName', this.uploadObj.taskName)
-      eleFileApi.uploadFile(fd).then((res) => {
+      // eleFileApi.uploadFile(fd).then((res) => {
+      //   this.btnDisabled = !this.btnDisabled;
+      //   console.log(res, "res")
+      //   let { data } = res//data是包含人工code的对象
+      //   if (data.code == 200) {//上传成功
+      //     this.upLoadSuccess(data.data, file.file)
+      //   } else { //上传失败
+      //     this.$message.error(res.msg);
+      //   }
+      // })
+      let headers = {
+        'Authorization': "Bearer " + getCookie("systoken"),
+        'content-type': 'multipart/form-data'
+      }
+      let url = "/system/file_annexes/uploadFile"
+      axios({
+        baseURL: process.env.VUE_APP_BASE_API,
+        url: url,
+        method: 'post',
+        headers: headers,
+        data: fd,
+        onUploadProgress: (progressEvent) => { this.progress(progressEvent) }
+      }).then((res) => {
         this.btnDisabled = !this.btnDisabled;
         console.log(res, "res")
         let { data } = res//data是包含人工code的对象
@@ -166,16 +192,25 @@ export default {
       }
     },
     //文件上传中
-    // progress(event, file, fileList) {
-    //   console.log("文件上传中,对于自定义上传貌似没用")
-    //   this.percentage = 0;
-    //   this.$nextTick(() => {
-    //     this.percentage = Number(file.percentage.toFixed(0));
-    //     if (this.percentage >= 100) {
-    //       this.percentage = 0;
-    //     }
-    //   });
-    // },
+    progress(progressEvent) {
+      console.log(progressEvent, "progressEvent")
+      let uploadPercent = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+      this.percentage = 0;
+      this.$nextTick(() => {
+        this.percentage = Number(uploadPercent.toFixed(0));
+        if (this.percentage >= 100) {
+          this.percentage = 0;
+        }
+      });
+      console.log("文件上传中,对于自定义上传貌似没用")
+      // this.percentage = 0;
+      // this.$nextTick(() => {
+      //   this.percentage = Number(file.percentage.toFixed(0));
+      //   if (this.percentage >= 100) {
+      //     this.percentage = 0;
+      //   }
+      // });
+    },
     //5 文件上传成功
     upLoadSuccess(data, file) {
       console.log("文件上传成功")
