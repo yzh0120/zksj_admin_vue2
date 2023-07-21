@@ -95,7 +95,7 @@ export default {
               this.loading = false;
               if (res.code == 200) {
                 setCookie(
-                  "token",
+                  process.env.VUE_APP_TOKEN,
                   res.data.token,
                   new Date(res.data.expireTime)
                 );

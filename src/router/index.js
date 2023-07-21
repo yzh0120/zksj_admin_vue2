@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
 
-  if (getCookie("token")) { //如果浏览器有token
+  if (getCookie(process.env.VUE_APP_TOKEN)) { //如果浏览器有token
 
 
     if (!store.getters.userInfo.userName) { //如果vuex没有用户信息

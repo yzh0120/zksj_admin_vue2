@@ -22,7 +22,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     config.headers = { //配置请求token
-      "Authorization": getCookie("token") || ""
+      "Authorization": getCookie(process.env.VUE_APP_TOKEN) || ""
     }
 
     if (config.method == "get") {

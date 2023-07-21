@@ -56,7 +56,7 @@ export default {
     // `dropdown 下拉菜单` 当前项点击
     onDropdownCommand(path) {
       if (path == "logOut") {
-        removeCookie("token");
+        removeCookie(process.env.VUE_APP_TOKEN);
         this._closeAllTagsView(this.$route)
         this.$store.state.router.routes = []//
         this.$router.push({ name: "login" }).then(() => {

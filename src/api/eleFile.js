@@ -19,7 +19,7 @@ import {
 //上传文件
 export function uploadFile(formData, pathUrl) {
   let headers = {
-    'Authorization': "Bearer " + getCookie("systoken"),
+    'Authorization': "Bearer " + getCookie(process.env.VUE_APP_TOKEN),
     'content-type': 'multipart/form-data'
   }
   let url = "/system/file_annexes/uploadFile"
