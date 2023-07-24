@@ -36,3 +36,12 @@ export function socket(data) {
     data: data
   })
 }
+
+
+export function getTree(data) {
+  return request({
+    url: "/test/tablePager",
+    method: "post",
+    data: data
+  })
+}

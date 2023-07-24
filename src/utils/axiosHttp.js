@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  Notification,
   Message,
   MessageBox
 } from 'element-ui';
@@ -52,6 +53,14 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     if (response.status === 200) { // 如果状态码是200  会执行.then的第一个函数
+
+      // 未设置状态码则默认成功状态
+      const code = response.data.code || 200;
+      if (code !== 200) {
+        Notification.error({ title: response.data.info })
+        return Promise.reject(response)
+      }
+
       return Promise.resolve(response.data)
     } else { //除了200 在2xx的范围 会执行.then的第二个函数  Promise.reject(res)  1
       return Promise.reject(response)
