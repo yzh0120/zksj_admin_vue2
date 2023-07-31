@@ -27,7 +27,7 @@
   >
     <template slot="prepend" v-if="item.prepend">{{ item.prepend }}</template>
     <template slot="append" v-if="item.append">{{ item.append }}</template>
-    <!-- style="background:#409EFF;color:#fff;" -->
+
     <el-button @click="search" slot="append" v-if="item.btn" :loading="item.loading">{{
       item.btn
     }}</el-button>
@@ -88,14 +88,23 @@ export default {
 </script>
 
 <style lang="scss">
-// .btn .el-input-group__append{
-//   background-color: #409eff;
-//   color: white;
-//   border-radius: 0px;
-// }
-// .self_btn .el-input-group__append {
-//         // background: #409EFF;
-//         border: 1px solid #409EFF;
-//         border-left: 0;
-//     }
+.self_btn .el-input-group__append {
+        background: #F6384C;
+        border: 1px solid #F6384C;
+        border-left: 0;
+        button{
+          background:red;
+          color:#fff;
+        }
+    }
+
+.is-disabled.self_btn .el-input-group__append {
+      border-left: 0;
+    background-color: #fb9ca6 !important;
+    border-color: #fb9ca6 !important;
+    button{
+          background:#fb9ca6;
+          color:#fff;
+        }
+    }
 </style>

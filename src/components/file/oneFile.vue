@@ -158,7 +158,7 @@ export default {
         if (data.code == 200) {//上传成功
           this.upLoadSuccess(data.data, file.file)
         } else { //上传失败
-          this.$message.error(res.msg);
+          this.$message.error(data.msg);
         }
       })
 
