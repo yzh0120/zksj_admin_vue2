@@ -2,14 +2,17 @@
   <page>
     <el-button @click="add">新增</el-button>
     <!-- 表格 -->
-    <vxe-grid class="reverse-table" v-bind="gridOptions">
-      <template #demo="{ row, columnIndex }">
-        <div>
-          <!-- 
+
+
+    <div class="flex">
+      <vxe-grid class="reverse-table" v-bind="gridOptions1" style="width:50%;" :auto-resize="true">
+        <template #demo="{ row, columnIndex }">
+          <div>
+            <!-- 
             columnIndex  代表了第几列  
             col${index}   是代表了第几行的值
            -->
-          <!-- <div v-if="columnIndex == 1">
+            <!-- <div v-if="columnIndex == 1">
             <span v-if="row.col0 == '科目'">{{eval(`row.col${columnIndex}`)  }}</span>
             <span v-else>{{row.col1 | formatMoney}}</span>
           </div>
@@ -22,15 +25,15 @@
             <span v-else>{{row.col3 | formatMoney}}</span>
           </div> -->
 
-          <span v-if="row.col0 == '科目'">{{ eval(row, columnIndex) }}</span>
-          <span v-else>{{ eval(row, columnIndex) }}</span>
+            <span v-if="row.col0 == '科目'">{{ eval(row, columnIndex) }}</span>
+            <span v-else>{{ eval(row, columnIndex) }}</span>
 
-          <el-button type="text" v-if="row.col0 == '科目'" @click="edit(row, columnIndex)">编辑</el-button>
-          <el-button type="text" v-if="row.col0 == '科目'" @click="del(row, columnIndex)">删除</el-button>
-        </div>
-      </template>
-    </vxe-grid>
-
+            <el-button type="text" v-if="row.col0 == '科目'" @click="edit(row, columnIndex)">编辑</el-button>
+            <el-button type="text" v-if="row.col0 == '科目'" @click="del(row, columnIndex)">删除</el-button>
+          </div>
+        </template>
+      </vxe-grid>
+    </div>
     <!-- 弹窗 -->
     <!-- <vxe-modal v-model="alert" width="800" height="600" showFooter title="产品分配标准" @close="alertCancel">
       <base-form :data="formData" ref="form"></base-form>
@@ -50,27 +53,35 @@ export default {
   data() {
     return {
       // alert: false,
-      alertData: {
-        alert: false
-      },
+      // alertData: {
+      //   alert: false
+      // },
       formData: {
         list: [
           { type: "input", field: "statDate", title: "科目" },
-          { type: "input", field: "moneyFunds", title: "货币资金" },
-          { type: "input", field: "id", title: "id" },
+          { type: "input", field: "moneyFunds", title: "货币资金1" },
+          { type: "input", field: "moneyFunds2", title: "货币资金2" },
         ],
         data: {},
       },
-      confirmData: {
+      alertData: {
         flag: false,
         w: "1066px",
         h: "800px",
         title: "基础弹窗",
       },
-      gridOptions: {
+      gridOptions1: {
         border: false,
         showOverflow: false,
-        height: 400,
+        // height: 400,
+        showHeader: false,
+        columns: [],
+        data: [],
+      },
+      gridOptions2: {
+        border: false,
+        showOverflow: false,
+        // height: 400,
         showHeader: false,
         columns: [],
         data: [],
@@ -78,63 +89,65 @@ export default {
       //这个是给reverseTable使用的  table的字段
       columnsList: [
         { field: "statDate", title: "科目" },
-        { field: "moneyFunds", title: "货币资金" },
+        { field: "moneyFunds", title: "货币资金1" },
+      ],
+      columnsList2: [
+        { field: "moneyFunds2", title: "货币资金2" },
       ],
       mytableDataList: [], //这个是给reverseTable使用的  table的数据
     };
   },
   created() {
-    this.reverseTable(this.columnsList, this.mytableDataList);
+    this.getData();
   },
   methods: {
-    getData(columnsList, list) {
-      this.reverseTable(columnsList, list);
+    //获取数据
+    getData() {
+      this.reverseTable(this.columnsList, this.mytableDataList, 1);
+      this.reverseTable(this.columnsList2, this.mytableDataList, 2);
     },
-    //新增
+    //弹窗
     add() {
       this.alertData.alert = true;
-      // this.reverseTable(this.columnsList, []);
     },
-    //编辑
+    //编辑某行
     edit(row, columnIndex) {
-      this.confirmData.flag = true;
+      this.alertData.alert = true;
       this.formData.data = this.$fn.deepClone(
         this.mytableDataList[columnIndex - 1]
       );
     },
-    //删除
+    //删除某行
     del(row, columnIndex) {
-      console.log(row, columnIndex);
+      this.mytableDataList.splice(columnIndex, 1)
+      this.gridOptionsHead.data = this.$fn.deepClone(this.mytableDataList)
+      this.getData()
     },
-
-
-
+    // 弹窗取消
     alertCancel() {
-      // this._reset(this.formData)
       this.formData.data = {}
       this.alertData.alert = false;
     },
     // 弹窗确认
     alertConfirm() {
-      this.mytableDataList.push(this.$fn.deepClone(this.formData.data));
-      this.getData(this.columnsList, this.mytableDataList);
+      if (this.formData.data.id) {//编辑
+        let index = this.mytableDataList.findIndex((e) => {
+          return e.id == this.formData.data.id
+        })
+        this.mytableDataList.splice(index, 1, this.$fn.deepClone(this.formData.data))
+      } else { //新增
+        this.formData.data.id = new Date().getTime()
+        this.mytableDataList.push(this.$fn.deepClone(this.formData.data));
+      }
+      console.log(this.$fn.deepClone(this.formData.data), "this.$fn.deepClone(this.formData.data)")
+
+      this.gridOptionsHead.data = this.$fn.deepClone(this.mytableDataList)
+
+
+      this.getData();
       this.alertCancel()
     },
-    // alertEvent(e) {
-    //   //确认
-    //   if (e.name == "confirm") {
-    //     this.mytableDataList.push(this.$fn.deepClone(this.formData.data));
 
-    //     this.getData(this.columnsList, this.mytableDataList);
-    //     this.alertEvent({ name: "cancel" });
-    //   }
-    //   //取消
-    //   if (e.name == "cancel") {
-    //     // this.$refs.form.reset();
-    //     this._reset(this.formData)
-    //     this.confirmData.flag = false;
-    //   }
-    // },
     eval(row, columnIndex) {
       return row[`col${columnIndex}`];
     },
@@ -225,12 +238,12 @@ export default {
           }
         ]
       */
-      this.gridOptions.data = buildData;
-      this.gridOptions.columns = buildColumns;
-      /*
+      // this.gridOptions.data = buildData;
+      // this.gridOptions.columns = buildColumns;
+
       this[`gridOptions${num}`].data = buildData;
       this[`gridOptions${num}`].columns = buildColumns;
-      */
+
     },
   },
 };
@@ -239,5 +252,15 @@ export default {
 <style>
 .reverse-table .vxe-body--row .vxe-body--column:first-child {
   background-color: #f8f8f9;
+}
+
+
+
+</style>
+
+<style scoped lang="scss">
+.flex {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
