@@ -199,18 +199,24 @@ export default {
       // immediate: true,
       // deep: true, // 深度监听
     },
-    "formData": {//
+    "formData": {
       handler: function () {
-        console.log("data.data")
+        setTimeout(() => {
+          this.clearValidate()
+        }, 0);
+        // console.log("data.data")
         this.slotCheckAll()
         this.slotSelectAll()
-      }
+      },
+      immediate: true,
+      deep: true, // 深度监听
     },
-    deep: true, // 深度监听
+    
   },
   created() {
     this._updatedata(this.data);
     this.autoTrigger();
+    
     this.slotCheckAll()
     this.slotSelectAll()
   },
@@ -401,7 +407,7 @@ export default {
       });
     },
     clearValidate() {
-      this.$refs.form.clearValidate()
+      this.$refs.form?.clearValidate()
     },
     // reset() {
     //   this.$refs.form.resetFields();
