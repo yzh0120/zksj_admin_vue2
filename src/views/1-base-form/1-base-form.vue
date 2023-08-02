@@ -158,7 +158,7 @@ export default {
           },
           { type: "month", field: "_month", title: "月选择器" },
           {
-            type: "date", field: "_date", title: "年月日选择器", pickerOpt: {
+            type: "date", field: "_date", title: "年月日选择器加限制范围", pickerOpt: {
               disabledDate: (time) => {
                 // console.log(time.getTime(), new Date(self.$fn.date.add(new Date(), -2, "year")).getTime(), "123123")
                 return time.getTime() < new Date(self.$fn.date.add(new Date(), -2, "year")).getTime();

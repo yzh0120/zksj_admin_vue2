@@ -159,6 +159,7 @@ export default {
           this.upLoadSuccess(data.data, file.file)
         } else { //上传失败
           this.$message.error(data.msg);
+          this.currentNum--
         }
       })
 
