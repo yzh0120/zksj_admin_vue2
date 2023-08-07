@@ -37,16 +37,8 @@ export function uploadFile(formData, pathUrl) {
 }
 
 
-//folderId获取文件列表
-export function queryList(data) {
-  return oarequest({
-    url: "/system/file_annexes/queryList",
-    method: "post",
-    data: data
-  })
-}
 
-//下載
+//下載文件流
 export function download(params = {}, type) {
   let msg = Message({
     message: "正在下载文件，请稍等",
@@ -102,6 +94,26 @@ export function download(params = {}, type) {
     // reject(err)
   })
 }
+//url下载文件流
+export function download_url(urll) {
+  let type = urll.split("/").pop()
+  console.log(type,"type")
+  let url  = encodeURIComponent(urll)
+  const link = document.createElement('a');
+  // 这里是将链接地址url转成blob地址，
+  fetch(url).then(res => res.blob()).then(blob => { 
+    link.href = URL.createObjectURL(blob)
+   
+      // 下载文件的名称及文件类型后缀
+      link.download = type; 
+      document.body.appendChild(link)
+      link.click()
+      //在资源下载完成后 清除 占用的缓存资源
+      window.URL.revokeObjectURL(link.href);
+      document.body.removeChild(link);
+  });
+      
+}
 
 
 //通过ids删除文件
@@ -110,5 +122,14 @@ export function removeByIds(data) {
     url: "/system/file_annexes/removeByIds",
     method: "post",
     params: data
+  })
+}
+
+//folderId获取文件列表
+export function queryList(data) {
+  return oarequest({
+    url: "/system/file_annexes/queryList",
+    method: "post",
+    data: data
   })
 }
