@@ -119,7 +119,7 @@ export default {
     },
     //删除某行
     del(row, columnIndex) {
-      this.mytableDataList.splice(columnIndex, 1)
+      this.mytableDataList.splice(columnIndex - 1, 1)
       this.gridOptionsHead.data = this.$fn.deepClone(this.mytableDataList)
       this.getData()
     },
