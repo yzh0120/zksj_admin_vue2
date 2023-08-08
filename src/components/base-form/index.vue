@@ -52,8 +52,8 @@
               </template>
               <!-- 动态组件 -->
               <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="(e) => {
-                  event(e, item);
-                }
+                event(e, item);
+              }
                 " :data="formData" v-else :dis="disabled" />
               <!--  -->
 
@@ -92,8 +92,8 @@
               </template>
               <!-- 动态组件 -->
               <component :is="currentComponent(item.type)" :item="item" :bossData="data" @baseFormEvent="(e) => {
-                  event(e, item);
-                }
+                event(e, item);
+              }
                 " :data="formData" v-else :dis="disabled" />
               <!--  -->
 
@@ -128,8 +128,8 @@
           </template>
           <!-- 动态组件 -->
           <component :is="currentComponent(item.type)" :item="item" @baseFormEvent="(e) => {
-              event(e, item);
-            }
+            event(e, item);
+          }
             " :data="formData" v-else :dis="disabled" :bossData="data" />
           <!--  -->
         </el-form-item>
@@ -211,12 +211,12 @@ export default {
       immediate: true,
       deep: true, // 深度监听
     },
-    
+
   },
   created() {
     this._updatedata(this.data);
     this.autoTrigger();
-    
+
     this.slotCheckAll()
     this.slotSelectAll()
   },
@@ -409,13 +409,14 @@ export default {
     clearValidate() {
       this.$refs.form?.clearValidate()
     },
-    // reset() {
-    //   this.$refs.form.resetFields();
-    //   for (let key of Object.keys(this.data.data)) {
-    //     // this.data.data[key] = null;
-    //     this.$set(this.data.data, key, null)
-    //   }
-    // },
+    reset() {
+      this.$refs.form.resetFields();
+      let obj = {}
+      for (let key of Object.keys(this.data.data)) {
+        obj[key] = null;
+      }
+      this.data.data = obj
+    },
     check() {
       let res = undefined;
       this.$refs.form.validate((valid) => {
@@ -482,6 +483,9 @@ export default {
       Object.assign(e, {
         item: item,
       });
+      if(e.name){
+        e.event = e.name
+      }
       this.$emit("event", e);
     },
   },
