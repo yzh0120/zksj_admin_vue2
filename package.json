@@ -7,7 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:test": "vue-cli-service build --mode test",
-    "build:prodtest": "vue-cli-service build --mode productiontest"
+    "build:uat": "vue-cli-service build --mode productiontest"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
