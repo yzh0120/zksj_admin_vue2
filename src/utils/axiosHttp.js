@@ -4,7 +4,6 @@ import {
   Message,
   MessageBox
 } from 'element-ui';
-import Cookies from 'js-cookie'
 //路由配置
 import router from '@/router'
 import {
@@ -12,6 +11,7 @@ import {
 } from '@/utils/auth.js';
 import md5 from "js-md5"
 import aes from "@/utils/aes"
+import store from '@/store/index' //vuex
 
 
 
@@ -55,13 +55,40 @@ service.interceptors.response.use(
     if (response.status === 200) { // 如果状态码是200  会执行.then的第一个函数
 
       // 未设置状态码则默认成功状态
-      const code = response.data.code || 200;
-      if (code !== 200) {
-        Notification.error({ title: response.data.info })
+      const code = response.data.code;
+      if (code == 200) {
+        return Promise.resolve(response.data)
+      } else if (code == 401) {
+        if (!store.state.config.show401) {
+          store.state.config.show = true;
+          MessageBox.alert("未授权，请重新登录", "提示", {
+            confirmButtonText: '确定',
+            callback: action => {
+              removeCookie(process.env.VUE_APP_TOKEN);
+              router.push({
+                path: '/login'
+              });
+              //   .then(() => {
+              //   window.location.reload();
+              // })
+
+            }
+          })
+        }
+      } else {
+        Notification.error({
+          title: response.data.info
+        })
         return Promise.reject(response)
       }
 
-      return Promise.resolve(response.data)
+
+      // if (code !== 200) {
+      //   Notification.error({ title: response.data.info })
+      //   return Promise.reject(response)
+      // }
+
+      // return Promise.resolve(response.data)
     } else { //除了200 在2xx的范围 会执行.then的第二个函数  Promise.reject(res)  1
       return Promise.reject(response)
     }
@@ -73,18 +100,34 @@ service.interceptors.response.use(
           err.message = '错误请求'
           break;
         case 401:
-          MessageBox.alert("未授权，请重新登录", "提示", {
-            confirmButtonText: '确定',
-            callback: action => {
-              Cookies.remove('userToken');
-              router.push({
-                name: 'Login'
-              }).then(() => {
-                window.location.reload();
-              })
+          if (!store.state.config.show401) {
+            store.state.config.show = true;
+            MessageBox.alert("未授权，请重新登录", "提示", {
+              confirmButtonText: '确定',
+              callback: action => {
+                removeCookie(process.env.VUE_APP_TOKEN);
+                router.push({
+                  path: '/login'
+                });
+                //   .then(() => {
+                //   window.location.reload();
+                // })
 
-            }
-          })
+              }
+            })
+          }
+          // MessageBox.alert("未授权，请重新登录", "提示", {
+          //   confirmButtonText: '确定',
+          //   callback: action => {
+          //     removeCookie(process.env.VUE_APP_TOKEN);
+          //     router.push({
+          //       name: 'Login'
+          //     }).then(() => {
+          //       window.location.reload();
+          //     })
+
+          //   }
+          // })
           break;
         case 403:
           err.message = '拒绝访问'

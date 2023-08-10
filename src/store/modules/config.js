@@ -5,12 +5,13 @@
  * 
  */
 const state = {
+  show401:false,
   isCollapse: false,
   loading: false,
   dataItem: {},
   mobile: false,
   window_innerWidth: undefined,
-		window_innerHeight: undefined,
+	window_innerHeight: undefined,
 }
 
 const mutations = {
