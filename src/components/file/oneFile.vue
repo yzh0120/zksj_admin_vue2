@@ -10,7 +10,7 @@
 
     <el-upload :disabled="btnDisabled" class="i-upload" :action="uploaduUrl" :http-request="changeFile"
       :show-file-list="false" multiple :on-change="handleChange" :on-progress="progress">
-      <el-button :disabled="btnDisabled" :size="btnSize" type="primary">{{ btnText }}
+      <el-button :disabled="btnDisabled" :size="btnSize" :type="btnType">{{ btnText }}
       </el-button>
     </el-upload>
 
@@ -63,11 +63,11 @@ export default {
       type: String,
       default: "mini",
     },
-    //文件大小
-    // size: {
-    //   type: Number,
-    //   default: 100,
-    // }
+    //文件按钮颜色
+    btnType: {
+      type: String,
+      default: "primary",
+    }
   },
   data() {
     return {
