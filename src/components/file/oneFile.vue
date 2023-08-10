@@ -1,5 +1,10 @@
 
 <template>
+  <!-- 
+<oneFile  pathUrl="/face/project/import" style="display: inline-block;margin-left: 20px;"></oneFile>
+
+<oneFile :uploadObj="uploadObj" :projectId="oneFormAlert.data.id" mode="onlyOne"  :fileId="oneFormAlert.data.currentFileId"></oneFile>
+   -->
   <span>
     <el-progress :percentage="percentage" :text-inside="true" :stroke-width="15" v-if="percentage"></el-progress>
 
@@ -59,10 +64,10 @@ export default {
       default: "mini",
     },
     //文件大小
-    size: {
-      type: Number,
-      default: 100,
-    }
+    // size: {
+    //   type: Number,
+    //   default: 100,
+    // }
   },
   data() {
     return {
@@ -121,29 +126,23 @@ export default {
     //2 取消默认上传事件
     changeFile(file) { //
       console.log("自定义上传事件")
-      if (!this.beforeUpload(file.file, this.uploadObj)) {
-        this.btnDisabled = !this.btnDisabled;
-        return
-      }
+      let url = "/system/file_annexes/uploadFile"
       let fd = new FormData()
-      fd.append('file', file.file)// 传文件
-      fd.append('folderId', this.projectId)
-      fd.append('taskName', this.uploadObj.taskName)
-      // eleFileApi.uploadFile(fd).then((res) => {
-      //   this.btnDisabled = !this.btnDisabled;
-      //   console.log(res, "res")
-      //   let { data } = res//data是包含人工code的对象
-      //   if (data.code == 200) {//上传成功
-      //     this.upLoadSuccess(data.data, file.file)
-      //   } else { //上传失败
-      //     this.$message.error(res.msg);
-      //   }
-      // })
+      if (this.pathUrl) {
+        url = this.pathUrl
+        fd.append('file', file.file)// 传文件
+      } else {
+        fd.append('file', file.file)// 传文件
+        fd.append('folderId', this.projectId)
+        fd.append('taskName', this.uploadObj.taskName)
+      }
+
       let headers = {
         'Authorization': "Bearer " + getCookie(process.env.VUE_APP_TOKEN),
         'content-type': 'multipart/form-data'
       }
-      let url = "/system/file_annexes/uploadFile"
+
+
       axios({
         baseURL: process.env.VUE_APP_BASE_API,
         url: url,

@@ -12,19 +12,9 @@
  -->
  <!--  -->
 <template>
-  <el-input
-    v-model="data[item.field]"
-    :type="item.type"
-    :disabled="item.disabled"
-    :placeholder="_getPlaceholder(item)"
-    @clear="setValueNull"
-    @blur="blur(data[item.field])"
-    @focus="focus(data[item.field])"
-    @input="input(data[item.field])"
-    clearable
-    :class="[item.btn ? 'self_btn' : '']"
-    :maxlength="item.max"
-  >
+  <el-input v-model="data[item.field]" :type="item.type" :disabled="item.disabled" :placeholder="_getPlaceholder(item)"
+    @clear="setValueNull" @blur="blur(data[item.field])" @focus="focus(data[item.field])" @input="input(data[item.field])"
+    clearable :class="[item.btn ? 'self_btn' : '']" :maxlength="item.max">
     <template slot="prepend" v-if="item.prepend">{{ item.prepend }}</template>
     <template slot="append" v-if="item.append">{{ item.append }}</template>
 
@@ -41,11 +31,11 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     item: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data() {
@@ -89,22 +79,24 @@ export default {
 
 <style lang="scss">
 .self_btn .el-input-group__append {
-        background: #F6384C;
-        border: 1px solid #F6384C;
-        border-left: 0;
-        button{
-          background:red;
-          color:#fff;
-        }
-    }
+  background: #F6384C;
+  border: 1px solid #F6384C;
+  border-left: 0;
+
+  button {
+    background: red;
+    color: #fff;
+  }
+}
 
 .is-disabled.self_btn .el-input-group__append {
-      border-left: 0;
-    background-color: #fb9ca6 !important;
-    border-color: #fb9ca6 !important;
-    button{
-          background:#fb9ca6;
-          color:#fff;
-        }
-    }
+  border-left: 0;
+  background-color: #fb9ca6 !important;
+  border-color: #fb9ca6 !important;
+
+  button {
+    background: #fb9ca6;
+    color: #fff;
+  }
+}
 </style>
