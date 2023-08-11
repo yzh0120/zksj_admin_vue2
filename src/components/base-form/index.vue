@@ -410,7 +410,7 @@ export default {
       this.$refs.form?.clearValidate()
     },
     reset() {
-      this.$refs.form.resetFields();
+      // this.$refs.form.resetFields();
       let obj = {}
       for (let key of Object.keys(this.data.data)) {
         obj[key] = null;
