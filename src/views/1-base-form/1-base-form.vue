@@ -17,7 +17,7 @@ export default {
     let self = this;
     return {
       form: {
-        className: "className",
+        // className: "className",
         list: [
           {
             type: "treeselect",

@@ -4,7 +4,7 @@
     
     <el-col :span="row.a">
       <el-form-item :prop="province" :rules="{ required: required, message: '此项不能为空', trigger: 'change' }" label-width="0px" class="city_slot">
-        <el-select :disabled="disabled" v-model.trim="item[province]" placeholder="选择省"
+        <el-select :disabled="disabled" v-model.trim="item[province]" placeholder="选择省" clearable
           @change="() => { getCitys(item[province]); item[city] = ''; item[areas] = ''; }" :loading="loading"
           filterable>
           <el-option v-for="(key) in division" :value="key.areaCode" :key="key.areaCode" :label="key.areaName">
@@ -14,7 +14,7 @@
     </el-col>
     <el-col :span="row.b">
       <el-form-item :prop="city" :rules="{ required: required, message: '此项不能为空', trigger: 'change' }"  label-width="0px" class="city_slot">
-        <el-select :disabled="disabled" v-model.trim="item[city]" placeholder="选择市"
+        <el-select :disabled="disabled" v-model.trim="item[city]" placeholder="选择市" clearable
           v-on:change="() => { getAreas(item[city]); item[areas] = ''; }" :loading="loading" filterable>
           <el-option v-for="(key) in cityArr" :value="key.areaCode" :key="key.areaCode" :label="key.areaName">
           </el-option>
@@ -23,7 +23,7 @@
     </el-col>
     <el-col :span="row.c"  v-if="!onlyTwo">
       <el-form-item :prop="areas" :rules="{required:required,message:'此项不能为空',trigger:'change'}"  label-width="0px" class="city_slot">
-        <el-select v-model.trim="item[areas]" placeholder="选择区" @change="areaChange" :loading="loading">
+        <el-select v-model.trim="item[areas]" placeholder="选择区" @change="areaChange" :loading="loading" clearable>
           <!-- <el-option v-for="key in areaArr" :value="key.value" :key="key.value" :label="key.text"></el-option> -->
           <el-option v-for="key in areaArr" :value="key.areaCode" :key="key.areaCode" :label="key.areaName"></el-option>
         </el-select>
@@ -32,7 +32,7 @@
     <el-col :span="row.d" v-if="!onlyTwo">
       <el-form-item :prop="adress" :rules="{ required: addressRequired, message: '此项不能为空', trigger: 'blur' }"  label-width="0px" class="city_slot"
         v-if="adress">
-        <el-input :disabled="disabled" v-model.trim="item[adress]" placeholder="请填写具体地址,如街道门牌号"></el-input>
+        <el-input :disabled="disabled" v-model.trim="item[adress]" placeholder="请填写具体地址,如街道门牌号" clearable></el-input>
       </el-form-item>
     </el-col>
   </el-row>
