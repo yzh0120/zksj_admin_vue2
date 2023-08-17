@@ -8,11 +8,11 @@
   <div>
     <vxe-grid v-bind="gridOptions" ref="xTable" :edit-rules="validRules">
 
-      <template #paidAmount="scope">
+      <template #paidAmountSlot="scope">
         <vxe-input v-enter-money v-model="scope.row.paidAmount" @change="$refs.xTable.updateStatus(scope)"></vxe-input>
       </template>
 
-      <template #tradingTime="scope">
+      <template #tradingTimeSlot="scope">
         <vxe-input v-model="scope.row.tradingTime" placeholder="日期选择" type="date" transfer
           @change="$refs.xTable.updateStatus(scope)"></vxe-input>
       </template>
@@ -42,7 +42,7 @@ export default {
               // autofocus: ".vxe-input--inner",
               placeholder: "请点击输入...",
             },
-            slots: { edit: "paidAmount" },
+            slots: { edit: "paidAmountSlot" },
           },
           {
             field: "tradingTime",
@@ -51,7 +51,7 @@ export default {
               // autofocus: ".vxe-input--inner",
               placeholder: "请点击输入...",
             },
-            slots: { edit: "tradingTime" },
+            slots: { edit: "tradingTimeSlot" },
           },
         ],
         data: [{}],
