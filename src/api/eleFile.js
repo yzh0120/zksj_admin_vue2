@@ -95,10 +95,10 @@ export function download(params = {}, type) {
   })
 }
 //url下载文件流
-export function download_url(urll) {
-  let type = urll.split("/").pop()
+export function download_url(url) {
+  let type = url.split("/").pop()
   console.log(type,"type")
-  let url  = encodeURIComponent(urll)
+  // let url  = encodeURIComponent(urll)
   const link = document.createElement('a');
   // 这里是将链接地址url转成blob地址，
   fetch(url).then(res => res.blob()).then(blob => { 
