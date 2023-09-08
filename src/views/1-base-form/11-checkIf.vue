@@ -128,8 +128,25 @@ export default {
             ],
           },
           {
+            type: "select",
+            field: "sssss",
+            title: "普通框111",
+            span: 12,
+            opt: [{
+              text: "是",
+              value: 0
+            }, {
+              text: "否",
+              value: 1
+            }],
+            rules: [
+              { required: true, message: "请输入" },
+              { validator: self.$validator.numberpoint },
+            ],
+          },
+          {
             slotSelect: true,
-            checkArr: [`_input222`],
+            checkArr: [`_input222`,`_inpu333`],
             title: "请选择",
             trueLabel: 0,
             falseLabel: 1,
@@ -153,6 +170,16 @@ export default {
               { validator: self.$validator.numberpoint },
             ],
           },
+          {
+            type: "input",
+            field: "_inpu333",
+            title: "普通输入框",
+            span: 12,
+            rules: [
+              { required: true, message: "请输入" },
+              { validator: self.$validator.numberpoint },
+            ],
+          },
         ],
         data: {},
       },
@@ -162,7 +189,7 @@ export default {
     setTimeout(() => {
       this.form2.data.ccc = 1
 
-      this.form3.data.ccc = 1
+      this.form3.data.ccc = 0
     }, 1000)
   },
   watch: {

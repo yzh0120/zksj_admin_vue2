@@ -205,8 +205,8 @@ export default {
           this.clearValidate()
         }, 0);
         // console.log("data.data")
-        this.slotCheckAll()
-        this.slotSelectAll()
+        // this.slotCheckAll()
+        // this.slotSelectAll()
       },
       immediate: true,
       deep: true, // 深度监听
@@ -341,20 +341,17 @@ export default {
     slotCheckAll() {
       this.for_List.forEach((item) => {
         if (item.slotCheck) {
-          // console.log(this.formData,item.field,this.formData[item.field],"-------")
           this.checkboxChange(this.formData[item.field], item)
         }
       })
     },
-    checkboxChange(e, item) {
-      console.log(e)
-      // if (e && e !== "0") {
-      if (e === item.trueLabel) {
-        item.checkArr.forEach((item) => {
+    checkboxChange(e, item_f) {
+      if (e === item_f.trueLabel) {
+        item_f.checkArr.forEach((item) => {
           this._set(this.data, item, { show: true })
         })
       } else {
-        item.checkArr.forEach((item) => {
+        item_f.checkArr.forEach((item) => {
           this._set(this.data, item, { show: false })
         })
       }
@@ -362,20 +359,18 @@ export default {
     slotSelectAll() {
       this.for_List.forEach((item) => {
         if (item.slotSelect) {
-          // console.log(this.formData,item.field,this.formData[item.field],"-------")
           this.selectChange(this.formData[item.field], item)
         }
       })
     },
-    selectChange(e, item) {
-      // console.log(e)
-      // if (e && e !== "0") {
-      if (e === item.trueLabel) {
-        item.checkArr.forEach((item) => {
+    selectChange(e, item_f) {
+      if (e === item_f.trueLabel) {
+        item_f.checkArr.forEach((item) => {
           this._set(this.data, item, { show: true })
+          
         })
       } else {
-        item.checkArr.forEach((item) => {
+        item_f.checkArr.forEach((item) => {
           this._set(this.data, item, { show: false })
         })
       }
